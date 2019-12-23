@@ -126,7 +126,7 @@
             </div>
             <h2 class="post-title"></h2>
             <div class="post-meta">
-                本文共计1283个字 |
+                本文共计1905个字 |
                 您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
@@ -141,20 +141,31 @@
   <style>
     .wrap{
       display: flex;
+      flex-wrap: wrap;
     }
 
     .each{
       text-align: center;
       padding: 15px 20px;
+      flex-shrink: none;
+      width: 100px;
     }
 
+    .imgWrap{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 80px;
+    }
+     
     .img{
-      max-width: 100px;
-      max-height: 100px;
+      width: 100px;
+      max-height: 80px;
     }
 
     .text{
-      padding: 8px 0;
+      padding: 0 0;
     }
   </style>
 <meta name="generator" content="Hexo 4.1.1"></head>
@@ -186,6 +197,18 @@
           img: './imgs/markdown.jpeg',
           link: 'https://www.jianshu.com/p/q81RER',
           text: 'markdown'
+        }, {
+          img: './imgs/mikutools.png',
+          link: 'https://tools.miku.ac/',
+          text: 'miku tools'
+        }, {
+          img: './imgs/antd.png',
+          link: 'https://ant-design.gitee.io/docs/react/introduce-cn',
+          text: 'Ant Design'
+        }, {
+          img: './imgs/koutu.png',
+          link: 'https://www.gaoding.com/koutu',
+          text: '抠图'
         }];
         
         var $arrHtml = [];
@@ -193,9 +216,11 @@
         for (var i = 0; i < arrLength; i++) {
           var item = arr[i];
           var _html = `<div class="each">
-            <img src="${item.img}" class="img" />
+            <div class="imgWrap">
+              <img src="${item.img}" class="img" />
+            </div>
             <div class="text">
-              <a href="${item.link}">${item.text}</a>
+              <a href="${item.link}" target="_blank">${item.text}</a>
             </div>
           </div>`;
           $arrHtml.push(_html);
