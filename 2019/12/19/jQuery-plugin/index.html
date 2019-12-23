@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>jquery插件开发详解（带demo） - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="jQuery jq插件开发">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">殷晓飞</a>
+                    <span title="最后编辑于&nbsp;2019-12-19">2019-12-19</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">jQuery插件开发详解（带demo）</h2>
+            <div class="post-meta">
+                本文共计4956个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <blockquote>
+<p>jQuery的链式调用是非常好用，<br>比如$(“.class”).addClass(“.abc”).siblings().removeClass(“.abc”)；<br>这个写法在导航中点击某个tab修改样式十分常见，链式调用也是jQuery很重要的特点，话扯得有点远。</p>
+</blockquote>
+<blockquote>
+<p>jQuery这么热门还有一个重要的原因——可扩展性，它允许我们通过方法来扩展jQuery。</p>
+</blockquote>
+<p>我们该如何扩展jQuery呢？主要可以通过下面2个来扩展：</p>
+<ul>
+<li>jQuery.extend</li>
+<li>jQuery.fn</li>
+</ul>
+<p>当然上面的也等价于：</p>
+<ul>
+<li>$.extend</li>
+<li>$.fn</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为什么呢？看过jQuery源码的人都知道，在jQuery中这么一种写法：</span><br><span class="line">window.$ &#x3D; window.jQuery &#x3D; jQuery;</span><br><span class="line">这里就不详细描述了，想深究的人可以查阅其他的资料</span><br></pre></td></tr></table></figure>
+<h5 id="下面开始介绍如何通过上面的两种方法实现我们想要的功能："><a href="#下面开始介绍如何通过上面的两种方法实现我们想要的功能：" class="headerlink" title="下面开始介绍如何通过上面的两种方法实现我们想要的功能："></a>下面开始介绍如何通过上面的两种方法实现我们想要的功能：</h5><ul>
+<li><p>$.extend<br>如果把jQuery当成一个类，$.extend相当于为该类添加了静态方法extend。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以通过$符号调用（$.functionName()）而不需要选中DOM元素($(&#39;.className&#39;).functionName())。</span><br></pre></td></tr></table></figure>
+<p>假设现在有个需求，我们需要扩展一个写日志的函数——日期+错误信息，我们可以这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;demo&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;jquery.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		$.extend(&#123;</span><br><span class="line">		    log: function(message) &#123;</span><br><span class="line">		        var now &#x3D; new Date(),</span><br><span class="line">		            y &#x3D; now.getFullYear(),</span><br><span class="line">		            m &#x3D; now.getMonth() + 1,</span><br><span class="line">		            d &#x3D; now.getDate(),</span><br><span class="line">		            h &#x3D; now.getHours(),</span><br><span class="line">		            min &#x3D; now.getMinutes(),</span><br><span class="line">		            s &#x3D; now.getSeconds(),</span><br><span class="line">		            time &#x3D; y + &#39;&#x2F;&#39; + m + &#39;&#x2F;&#39; + d + &#39; &#39; + h + &#39;:&#39; + min + &#39;:&#39; + s;</span><br><span class="line">		            console.log(time + &#39; My App: &#39; + message);</span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		$.log(&quot;出错啦！&quot;);</span><br><span class="line">	&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>Chrome浏览器f12，发现输出了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2016&#x2F;1&#x2F;28 15:35:16 My App: 出错啦！</span><br></pre></td></tr></table></figure>
+<p>是不是很简单，再来看看 $.fn.extend。</p>
+</li>
+<li><p>$.fn、<br>$.fn等于$.prototype<br>基本的书写格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.fn.pluginName &#x3D; function(options) &#123;</span><br><span class="line">  &#x2F;&#x2F;这里写我们想要的效果</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用时和上面的不一样，需要操作具体的对象：</span><br><span class="line">$(&quot;.ele&quot;).pluginName(options);</span><br></pre></td></tr></table></figure>
+<p>同样，假设我们想修改某个元素的颜色(颜色不固定)，我们可以这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.fn.changeColor &#x3D; function(colorName)&#123;</span><br><span class="line">      this.css(&quot;color&quot;:colorName? colorName : &#39;#000&#39;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过上面的写法，提高了代码的复用性，可扩展性也高：</span><br><span class="line">$(&quot;span&quot;).changeColor();--span标签颜色变为默认的：#000</span><br><span class="line">$(&quot;span&quot;).changeColor(&quot;#f06&quot;);--span标签颜色变为默认的：#f06</span><br><span class="line">$(&quot;p&quot;).changeColor(&quot;#f06&quot;);--p标签颜色变为默认的：#f06</span><br></pre></td></tr></table></figure>
+<h5 id="备注：this指代的是我们在调用该插件时，jQuery选择器选中的元素。this和prototype-都是js中十分重要的概念，希望大家都能多了解这么面的知识。"><a href="#备注：this指代的是我们在调用该插件时，jQuery选择器选中的元素。this和prototype-都是js中十分重要的概念，希望大家都能多了解这么面的知识。" class="headerlink" title="备注：this指代的是我们在调用该插件时，jQuery选择器选中的元素。this和prototype 都是js中十分重要的概念，希望大家都能多了解这么面的知识。"></a>备注：this指代的是我们在调用该插件时，jQuery选择器选中的元素。this和prototype 都是js中十分重要的概念，希望大家都能多了解这么面的知识。</h5></li>
+</ul>
+<p>如果我们有这么一个需求，一次性修改多个样式,且每个样式存在一个对应的默认值。</p>
+<ul>
+<li>首先先看这一段代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;demo&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;p class&#x3D;&quot;text1&quot;&gt;测试文字&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p class&#x3D;&quot;text2&quot;&gt;测试文字&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;jquery.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		$.fn.changeColor &#x3D; function(options)&#123;</span><br><span class="line">			this.defaults &#x3D; &#123;</span><br><span class="line">				&#39;color&#39;: &#39;#000&#39;,</span><br><span class="line">				&#39;fontSize&#39;: &#39;14px&#39;,</span><br><span class="line">				&#39;fontWeight&#39;: &#39;normal&#39;</span><br><span class="line">			&#125;;</span><br><span class="line">			this.opt &#x3D; $.extend(this.defaults, options);</span><br><span class="line">			console.log(this.defaults);</span><br><span class="line">			this.css(&#123;</span><br><span class="line">                &#39;color&#39;: this.opt.color,</span><br><span class="line">                &#39;font-size&#39;: this.opt.fontSize,</span><br><span class="line">                &#39;font-weight&#39;: this.opt.fontWeight</span><br><span class="line">            &#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		$(&quot;.text1&quot;).changeColor();</span><br><span class="line">		$(&quot;.text2&quot;).changeColor(&#123;&#39;color&#39;: &#39;#f06&#39;,&#39;fontSize&#39;: &#39;18px&#39;,&#39;fontWeight&#39;: &#39;bold&#39;&#125;);</span><br><span class="line">	&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+执行结果：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-e3dba67c070d3597.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic1.png"><br>界面上的样式结果是我们所要的，但是我们奇怪的发现第二次打印 console.log(this.defaults);时，defaults的值被我们所传的options覆盖了。<br>造成这个结果的原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.opt &#x3D; $.extend(this.defaults, options);</span><br><span class="line">使用jQuery的extend方法,</span><br><span class="line">extend方法传递单个对象的情况下，这个对象会合并到jQuery身上，</span><br><span class="line">而当用extend方法传递一个以上的参数时，它会将所有参数对象合并到第一个里,</span><br><span class="line">同时，如果对象中有同名属性时，合并的时候后面的会覆盖前面的。</span><br></pre></td></tr></table></figure>
+<h5 id="解决办法就是使用下面的这句话替代上面的："><a href="#解决办法就是使用下面的这句话替代上面的：" class="headerlink" title="解决办法就是使用下面的这句话替代上面的："></a>解决办法就是使用下面的这句话替代上面的：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.opt &#x3D; $.extend(&#123;&#125;, this.defaults, options);</span><br></pre></td></tr></table></figure>
+<p>你看执行结果正常了，上面写的其实没有必要用extend就可以实现一次性修改多个样式,且每个样式存在一个对应的默认值。之所以例子中用到这个，就是想说明<strong>extend</strong>的这个注意点。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-d53d1e71317f554b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic2.png"></p>
+<p>但是这样写仍然可能会出现问题，更好的写法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">;(function($,window,document,undefined)&#123;</span><br><span class="line">		   $.fn.changeColor &#x3D; function(options)&#123;</span><br><span class="line">				this.defaults &#x3D; &#123;</span><br><span class="line">					&#39;color&#39;: &#39;#000&#39;,</span><br><span class="line">					&#39;fontSize&#39;: &#39;14px&#39;,</span><br><span class="line">					&#39;fontWeight&#39;: &#39;normal&#39;</span><br><span class="line">				&#125;;</span><br><span class="line">				this.opt &#x3D; $.extend(&#123;&#125;, this.defaults, options);</span><br><span class="line">				console.log(this.defaults);</span><br><span class="line">				this.css(&#123;</span><br><span class="line">	                &#39;color&#39;: this.opt.color,</span><br><span class="line">	                &#39;font-size&#39;: this.opt.fontSize,</span><br><span class="line">	                &#39;font-weight&#39;: this.opt.fontWeight</span><br><span class="line">	            &#125;);</span><br><span class="line">			&#125;</span><br><span class="line">&#125;)(jQuery,window,document);</span><br></pre></td></tr></table></figure>
+<p>将我们要实现的代码封装在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;(function($,window,document,undefined)&#123;</span><br><span class="line">    &#x2F;&#x2F;想要实现的功能的代码</span><br><span class="line">&#125;)(jQuery,window,document);</span><br></pre></td></tr></table></figure>
+<h5 id="这里的”；”最好添加上，可以避免代码压缩时出现问题"><a href="#这里的”；”最好添加上，可以避免代码压缩时出现问题" class="headerlink" title="这里的”；”最好添加上，可以避免代码压缩时出现问题"></a>这里的”；”最好添加上，可以避免代码压缩时出现问题</h5><br>
+这种将系统变量以变量形式传递到插件内部的方法可以避免别人写的代码将window, undefined等这些系统变量或者关键字修改掉了，而我们又在自己的代码里面进行了使用。
+看过一篇文章，里面有对这个undefined使用的介绍我这就直接复制过来了。
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为了得到没有被修改的undefined，</span><br><span class="line">我们并没有传递这个参数，但却在接收时接收了它，因为实际并没有传，</span><br><span class="line">所以‘undefined’那个位置接收到的就是真实的&#39;undefined&#39;了。</span><br></pre></td></tr></table></figure>
+其中精髓，大家细细体会~
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>

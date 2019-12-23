@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>使用raphael基础类库画图，兼容ie6+ - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="raphael 图表">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">殷晓飞</a>
+                    <span title="最后编辑于&nbsp;2019-12-19">2019-12-19</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">使用raphael基础类库画图，兼容ie6+</h2>
+            <div class="post-meta">
+                本文共计10771个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <blockquote>
+<p>由于业务需要所有的图表都支持在ie8上能正常显示，且设计在设计图表时未遵循市面上的highcharts、echarts，经过团队调研，最终选择了raphael。本文主要从效果图、基础API、demo三方面来介绍。</p>
+</blockquote>
+<ul>
+<li>首先看一下最终的效果图</li>
+</ul>
+<div style="text-align: center">
+  <img src='http://upload-images.jianshu.io/upload_images/712523-d8295e584d3360ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' width='40%' />
+
+  <img src='http://upload-images.jianshu.io/upload_images/712523-ed9d3fa6f8807cc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' width='40%' />
+</div>
+
+<ul>
+<li>基础API</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-198cbd901e5eaa73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-bc358be024079ec3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-63d0cce8f79a4a49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-303f9ac9e306781c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-53af9799f80303fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-fa7dd594039a6ecd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-1d6a5bf3cef683b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-6c9fb76c62aa6434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-6e3fee0691b4b526.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-3f1e74e0e21a537f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-974e9ee7d1ecf580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="11"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-1ab5a806eb3179af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="12"></p>
+<ul>
+<li>雷达图demo</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;ie&#x3D;edge&quot;&gt;</span><br><span class="line">  &lt;title&gt;Document&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">      padding: 0;</span><br><span class="line">      margin: 0;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;script src&#x3D;&quot;.&#x2F;raphael.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;rate-chart-wrap&quot; class&#x3D;&quot;rate-chart&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 根据圆心、半径、角度得到元素的坐标</span><br><span class="line">     * @return &#123;[type]&#125; [点的坐标]</span><br><span class="line">     *&#x2F;</span><br><span class="line"></span><br><span class="line">    function getLocationByDeg(deg, percent, isOutter) &#123;</span><br><span class="line">      var x0 &#x3D; 160,</span><br><span class="line">        y0 &#x3D; 160;</span><br><span class="line">      var r &#x3D; !!percent ? 83 * percent : 93;</span><br><span class="line">      r &#x3D; percent &#x3D;&#x3D;&#x3D; 0 ? 3 : r;</span><br><span class="line">      r &#x3D; !isOutter ? r : 125;</span><br><span class="line">      var x1 &#x3D; parseInt((x0 + r * Math.cos(deg * 3.14 &#x2F; 180)).toFixed(0));</span><br><span class="line">      var y1 &#x3D; parseInt((x0 + r * Math.sin(deg * 3.14 &#x2F; 180)).toFixed(0));</span><br><span class="line">      return &#123;</span><br><span class="line">        &#39;x&#39;: x1,</span><br><span class="line">        &#39;y&#39;: y1</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 获得所有需要的点的位置</span><br><span class="line">     * @param &#123;[type]&#125; initParams [description]</span><br><span class="line">     * @return &#123;[type]&#125; [description]</span><br><span class="line">     *&#x2F;</span><br><span class="line">    function getDotsPosition(initParams) &#123;</span><br><span class="line">      &#x2F;&#x2F;所有外面标记点的坐标集合</span><br><span class="line">      var outsideDots &#x3D; [];</span><br><span class="line">      var outsideTextDots &#x3D; [];</span><br><span class="line">      var insideDots &#x3D; [];</span><br><span class="line">      var outLineDots &#x3D; [];</span><br><span class="line">      var totalOutLineObj &#x3D; &#123;</span><br><span class="line">        &#39;100&#39;: [],</span><br><span class="line">        &#39;75&#39;: [],</span><br><span class="line">        &#39;50&#39;: [],</span><br><span class="line">        &#39;25&#39;: []</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      var dotNums &#x3D; initParams.length;</span><br><span class="line">      var deg &#x3D; 360 &#x2F; dotNums; &#x2F;&#x2F;每个扇形所占的角度</span><br><span class="line">      for (var i &#x3D; 0; i &lt; dotNums; i++) &#123;</span><br><span class="line">        outsideDots.push(getLocationByDeg(270 - deg * i));</span><br><span class="line">        outsideTextDots.push(getLocationByDeg(270 - deg * i, 1, true));</span><br><span class="line">        insideDots.push(getLocationByDeg((270 - deg * i), (initParams[i].score) &#x2F; 100));</span><br><span class="line">        outLineDots.push(getLocationByDeg(270 - deg * i, 1));</span><br><span class="line">        totalOutLineObj[&#39;100&#39;].push(getLocationByDeg((270 - deg * i), 1));</span><br><span class="line">        totalOutLineObj[&#39;75&#39;].push(getLocationByDeg((270 - deg * i), 0.75));</span><br><span class="line">        totalOutLineObj[&#39;50&#39;].push(getLocationByDeg((270 - deg * i), 0.5));</span><br><span class="line">        totalOutLineObj[&#39;25&#39;].push(getLocationByDeg((270 - deg * i), 0.25));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return &#123;</span><br><span class="line">        &#39;outsideDots&#39;: outsideDots,</span><br><span class="line">        &#39;outsideTextDots&#39;: outsideTextDots,</span><br><span class="line">        &#39;insideDots&#39;: insideDots,</span><br><span class="line">        &#39;outLineDots&#39;: outLineDots,</span><br><span class="line">        &#39;totalOutLineObj&#39;: totalOutLineObj</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;将内部的点连接起来并填充颜色</span><br><span class="line">    function drawPath(dots) &#123;</span><br><span class="line">      var length &#x3D; dots.length;</span><br><span class="line">      var p &#x3D; [&#39;M&#39;];</span><br><span class="line"></span><br><span class="line">      for (var i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">        var dot &#x3D; dots[i];</span><br><span class="line">        p.push(dot.x, dot.y, &#39;L&#39;);</span><br><span class="line">      &#125;</span><br><span class="line">      p &#x3D; p.slice(0, -1);</span><br><span class="line">      p.push(&#39;Z&#39;);</span><br><span class="line">      return p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drawRadarChart(initParams) &#123;</span><br><span class="line">      var paramsLength &#x3D; initParams.length;</span><br><span class="line">      var colors &#x3D; [</span><br><span class="line">        &#39;rgb(92, 215, 120)&#39;,</span><br><span class="line">        &#39;rgb(120, 164, 255)&#39;,</span><br><span class="line">        &#39;rgb(200, 150, 254)&#39;,</span><br><span class="line">        &#39;rgb(255, 130, 121)&#39;,</span><br><span class="line">        &#39;rgb(254, 178, 50)&#39;,</span><br><span class="line">        &#39;rgb(177, 221, 48)&#39;</span><br><span class="line">      ];</span><br><span class="line"></span><br><span class="line">      for (var i &#x3D; 0; i &lt; paramsLength; i++) &#123;</span><br><span class="line">        initParams[i][&#39;color&#39;] &#x3D; colors[i % 5];</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      var dotLength &#x3D; initParams.length;</span><br><span class="line">      var dotsPosition &#x3D; getDotsPosition(initParams);</span><br><span class="line">      var outsideDots &#x3D; dotsPosition.outsideDots,</span><br><span class="line">        outsideTextDots &#x3D; dotsPosition.outsideTextDots,</span><br><span class="line">        insideDots &#x3D; dotsPosition.insideDots,</span><br><span class="line">        outLineDots &#x3D; dotsPosition.outLineDots,</span><br><span class="line">        totalOutLineObj &#x3D; dotsPosition.totalOutLineObj;</span><br><span class="line"></span><br><span class="line">      var paper &#x3D; Raphael(document.getElementById(&quot;rate-chart-wrap&quot;), 320, 320);</span><br><span class="line">      var st &#x3D; paper.set();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;画最外层的折线(100%,75%,50%,25)</span><br><span class="line">      paper.path().attr(&#123;</span><br><span class="line">        &#39;path&#39;: drawPath(totalOutLineObj[&#39;100&#39;]),</span><br><span class="line">        &#39;fill&#39;: &#39;rgba(148, 255, 139, 0.12)&#39;,</span><br><span class="line">        &#39;stroke&#39;: &#39;rgb(205, 241, 205)&#39;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      paper.path().attr(&#123;</span><br><span class="line">        &#39;path&#39;: drawPath(totalOutLineObj[&#39;75&#39;]),</span><br><span class="line">        &#39;fill&#39;: &#39;rgba(148, 255, 139, 0.12)&#39;,</span><br><span class="line">        &#39;stroke&#39;: &#39;rgb(205, 241, 205)&#39;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      paper.path().attr(&#123;</span><br><span class="line">        &#39;path&#39;: drawPath(totalOutLineObj[&#39;50&#39;]),</span><br><span class="line">        &#39;fill&#39;: &#39;rgba(148, 255, 139, 0.12)&#39;,</span><br><span class="line">        &#39;stroke&#39;: &#39;rgb(205, 241, 205)&#39;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      paper.path().attr(&#123;</span><br><span class="line">        &#39;path&#39;: drawPath(totalOutLineObj[&#39;25&#39;]),</span><br><span class="line">        &#39;fill&#39;: &#39;rgba(148, 255, 139, 0.12)&#39;,</span><br><span class="line">        &#39;stroke&#39;: &#39;rgb(205, 241, 205)&#39;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      for (var i &#x3D; 0; i &lt; dotLength; i++) &#123;</span><br><span class="line">        &#x2F;&#x2F;画外部的点线文字</span><br><span class="line">        var outsideDot &#x3D; outsideDots[i];</span><br><span class="line">        var outsideTextDot &#x3D; outsideTextDots[i];</span><br><span class="line">        var nameY &#x3D; outsideTextDot.y,</span><br><span class="line">          nameX &#x3D; outsideTextDot.x,</span><br><span class="line">          scoreY &#x3D; outsideTextDot.y,</span><br><span class="line">          scoreX &#x3D; outsideTextDot.x;</span><br><span class="line">        if (nameY &lt; 160) &#123;</span><br><span class="line">          nameY +&#x3D; 20;</span><br><span class="line">        &#125; else if (nameY &gt; 160) &#123;</span><br><span class="line">          scoreY -&#x3D; 10;</span><br><span class="line">          nameY +&#x3D; 10;</span><br><span class="line">        &#125; else if (nameY &#x3D;&#x3D; 160) &#123;</span><br><span class="line">          scoreY -&#x3D; 10;</span><br><span class="line">          nameY +&#x3D; 10;</span><br><span class="line">        &#125;</span><br><span class="line">        st.push(</span><br><span class="line">          paper.path(&#39;M&#39; + outLineDots[i].x + &#39;,&#39; + outLineDots[i].y + &#39;L160,160Z&#39;).attr(&#123;</span><br><span class="line">            &#x2F;&#x2F; &#39;fill&#39;: &#39;#eee&#39;,</span><br><span class="line">            &#39;stroke&#39;: &#39;rgb(187, 223, 187)&#39;</span><br><span class="line">          &#125;),</span><br><span class="line">          paper.circle(outsideDot.x, outsideDot.y, 3).attr(&#123;</span><br><span class="line">            &#39;fill&#39;: initParams[i].color,</span><br><span class="line">            &#39;stroke&#39;: initParams[i].color</span><br><span class="line">          &#125;),</span><br><span class="line">          paper.text(nameX, nameY, initParams[i].name).attr(&#123;</span><br><span class="line">            &#39;font-size&#39;: &#39;12px&#39;,</span><br><span class="line">            &#39;fill&#39;: &#39;rgb(102, 102, 102)&#39;</span><br><span class="line">          &#125;),</span><br><span class="line">          paper.text(scoreX, scoreY, initParams[i].score).attr(&#123;</span><br><span class="line">            &#39;fill&#39;: initParams[i].color,</span><br><span class="line">            &#39;font-size&#39;: &#39;18px&#39;</span><br><span class="line">          &#125;)</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">      paper.path().attr(&#123;</span><br><span class="line">        &#39;path&#39;: drawPath(insideDots),</span><br><span class="line">        &#39;fill&#39;: &#39;270-rgba(159,240,79,0.3)-rgba(56,189,88,0.4)&#39;,</span><br><span class="line">        &#39;stroke&#39;: &#39;rgb(91, 208, 48)&#39;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    drawRadarChart([&#123;</span><br><span class="line">        &#39;name&#39;: &#39;A&#39;,</span><br><span class="line">        &#39;score&#39;: 15</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &#39;name&#39;: &#39;BB&#39;,</span><br><span class="line">        &#39;score&#39;: 80</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &#39;name&#39;: &#39;CCC&#39;,</span><br><span class="line">        &#39;score&#39;: 60</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &#39;name&#39;: &#39;DDDD&#39;,</span><br><span class="line">        &#39;score&#39;: 86</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    ]);</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>圆环形进度</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;ie&#x3D;edge&quot;&gt;</span><br><span class="line">  &lt;title&gt;Document&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;ring-chart&quot; style&#x3D;&quot;background: red&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;script src&#x3D;&quot;.&#x2F;raphael.min.js&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">  let imgCircleLine &#x3D; &#39;.&#x2F;images&#x2F;cirle-line.png&#39;;</span><br><span class="line">  let imgCircleStroke &#x3D; &#39;.&#x2F;images&#x2F;circle-stroke.png&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;将内部的点连接起来并填充颜色</span><br><span class="line">function drawPath(dots) &#123;</span><br><span class="line">  var length &#x3D; dots.length;</span><br><span class="line">  var p &#x3D; [&#39;M&#39;];</span><br><span class="line">  for (var i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">    var dot &#x3D; dots[i];</span><br><span class="line">    p.push(dot.x, dot.y, &#39;L&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  p &#x3D; p.slice(0, -1);</span><br><span class="line">  p.push(&#39;Z&#39;);</span><br><span class="line">  return p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getLocationByDeg(percent, isOutter) &#123;</span><br><span class="line">  var deg &#x3D; -(percent &#x2F; 100) * 360 - 90;</span><br><span class="line">  var x0 &#x3D; 70,</span><br><span class="line">      y0 &#x3D; 70;</span><br><span class="line">  var r &#x3D; 55;</span><br><span class="line"></span><br><span class="line">  r &#x3D; isOutter ? 69 : r;</span><br><span class="line"></span><br><span class="line">  var x1 &#x3D; x0 + r * Math.cos(deg*3.14&#x2F;180);</span><br><span class="line">  var y1 &#x3D; x0 + r * Math.sin(deg*3.14&#x2F;180);</span><br><span class="line"></span><br><span class="line">  return &#123;&#39;x&#39;: x1, &#39;y&#39;: y1&#125;;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function drawRingChart(percent) &#123;</span><br><span class="line">  percent &#x3D; 100 - percent;</span><br><span class="line">  var paperRing &#x3D; Raphael(document.getElementById(&quot;ring-chart&quot;), 140, 140);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  paperRing.image(imgCircleLine, 0, 0, 140, 140);</span><br><span class="line">  paperRing.image(imgCircleStroke, 8, 8, 124, 124);</span><br><span class="line"></span><br><span class="line">  var finalX &#x3D; getLocationByDeg(percent).x;</span><br><span class="line">  var finalY &#x3D; getLocationByDeg(percent).y;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;大角度则为1，小角度则为0</span><br><span class="line">  var orientationNum &#x3D; 0;</span><br><span class="line">  if(percent &gt; 50)&#123;</span><br><span class="line">    orientationNum &#x3D; 1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var pPercent &#x3D; [&quot;M&quot;, 70, 15, &quot;A&quot;, 55, 55, 0, orientationNum, 0, finalX, finalY];</span><br><span class="line">  paperRing.path().attr(&#123;</span><br><span class="line">    &#39;path&#39;: pPercent,</span><br><span class="line">    &#39;stroke-width&#39;: 14,</span><br><span class="line">    &#39;stroke&#39;: &#39;#76c573&#39;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var finalXOuter &#x3D; getLocationByDeg(percent, true).x;</span><br><span class="line">  var finalYOuter &#x3D; getLocationByDeg(percent, true).y;</span><br><span class="line">  var pPercentOuter &#x3D; [&quot;M&quot;, 69, 1, &quot;A&quot;, 69, 69, 0, orientationNum, 0, finalXOuter, finalYOuter];</span><br><span class="line">  paperRing.path().attr(&#123;</span><br><span class="line">    &#39;path&#39;: pPercentOuter,</span><br><span class="line">    &#39;stroke-width&#39;: 4,</span><br><span class="line">    &#39;stroke&#39;: &#39;#5cbb5c&#39;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">drawRingChart(30);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>希望对您有用~~</p>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>mac安装mysql的两种方法（含配置） - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="mac mysql">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">殷晓飞</a>
+                    <span title="最后编辑于&nbsp;2019-12-19">2019-12-19</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">mac安装mysql的两种方法（含配置）</h2>
+            <div class="post-meta">
+                本文共计2037个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <blockquote>
+<p>网上关于mac安装mysql的教程大多不完善，笔者在亲自本地安装后做了相关的整理&amp;记录，希望对大家有帮助。下面主要介绍2种安装方法以及后续的配置，推荐通过安装包的形式安装。</p>
+</blockquote>
+<h5 id="1-使用安装包安装mysql"><a href="#1-使用安装包安装mysql" class="headerlink" title="1.使用安装包安装mysql"></a>1.使用安装包安装mysql</h5><ul>
+<li>双击打开安装文件</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-a8e54f8774ed9a47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic1.png"></p>
+<ul>
+<li>双击pkg文件安装</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-da0f818382b824eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic2.png"></p>
+<ul>
+<li>一路向下，记得保存最后弹出框中的密码（它是你mysql root账号的密码）</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-232499c71bb79fcb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MYSQL2.png"></p>
+<ul>
+<li><p>正常情况下，安装成功。</p>
+</li>
+<li><p>此时只是安装成功，但还需要额外的配置：</p>
+<p>(1) 进入系统偏好设置</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-2be65c7aa13fcc3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic3.png"></p>
+<p>  (2) 点击mysql<br><img src="http://upload-images.jianshu.io/upload_images/712523-0135e25463e3c05d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic4.png"><br>(3) 开启mysql服务<br><img src="http://upload-images.jianshu.io/upload_images/712523-8cd12cc1d29ea995.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic5.png"></p>
+<ul>
+<li>此时我们在命令行输入mysql  -uroot -p命令会提示没有commod not found，我们还需要将mysql加入系统环境变量。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(1).进入&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin,查看此目录下是否有mysql，见pic6。</span><br><span class="line">(2).执行vim ~&#x2F;.bash_profile</span><br><span class="line">      在该文件中添加mysql&#x2F;bin的目录，见pic7：</span><br><span class="line">      PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin</span><br><span class="line">添加完成后，按esc，然后输入wq保存。</span><br><span class="line">最后在命令行输入source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
+<br>
+![pic6.png](http://upload-images.jianshu.io/upload_images/712523-2500ae23355ae39b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/712523-42aa5aabaeb7b2bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pic7.png"></p>
+<ul>
+<li>现在你就可以通过mysql -uroot -p登录mysql了，会让你输入密码，就是pic3上的&gt;fj…<br>登录成功后，你可以通过下面的命令修改密码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; &#x3D; PASSWORD(&#39;newpass&#39;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h5 id="2-使用homebrew安装mysql及遇到的问题"><a href="#2-使用homebrew安装mysql及遇到的问题" class="headerlink" title="2.使用homebrew安装mysql及遇到的问题"></a>2.使用homebrew安装mysql及遇到的问题</h5><ul>
+<li><p>安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装完成之后，本地命令行输入mysql命令，发现无此命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commond not found</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首先，检查是否是安装了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">重新执行一遍 </span><br><span class="line">brew install mysql</span><br><span class="line">命令行提示：</span><br><span class="line">Warning: mysql-5.7.10 already installed, it&#39;s just not linked</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后网上查找解决方法，最后解决方法是执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew link --overwrite mysql</span><br></pre></td></tr></table></figure></li>
+<li><p>但是执行，却报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linking &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql&#x2F;5.7.10... </span><br><span class="line">Error: Could not symlink share&#x2F;man&#x2F;man8&#x2F;mysqld.8</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;share&#x2F;man&#x2F;man8 is not writable.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>又在网上各种查找解决方法，最后本地实验以下语句执行成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R &#39;yin&#39; &#x2F;usr&#x2F;local</span><br><span class="line">注意： yin是你电脑的用户名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决了问题后，重新执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew link --overwrite mysql</span><br><span class="line">提示：</span><br><span class="line">Linking &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql&#x2F;5.7.10... 92 symlinks created</span><br></pre></td></tr></table></figure>
+<p>心想着，这下算是成功了吧。重新执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<p>但是又报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 2002 (HY000): Can&#39;t connect to local MySQL server through socket &#39;&#x2F;tmp&#x2F;mysql.sock&#39; (2)</span><br></pre></td></tr></table></figure>
+<p>依次执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset TMPDIR</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash mysql_install_db --verbose --user&#x3D;root</span><br><span class="line"> --basedir&#x3D;&quot;$(brew --prefix mysql)&quot;--datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql --tmpdir&#x3D;&#x2F;tmp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">接下来启动mysql</span><br><span class="line">bash mysql.server start</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h5 id="到这里，mysql的安装就结束了，我这里还是推荐第一种安装包的形式安装。谢谢～"><a href="#到这里，mysql的安装就结束了，我这里还是推荐第一种安装包的形式安装。谢谢～" class="headerlink" title="到这里，mysql的安装就结束了，我这里还是推荐第一种安装包的形式安装。谢谢～"></a>到这里，mysql的安装就结束了，我这里还是推荐第一种安装包的形式安装。谢谢～</h5>
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>

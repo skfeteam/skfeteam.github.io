@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>js常规日期格式处理、月历渲染、倒计时函数 - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="日期 月历">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">殷晓飞</a>
+                    <span title="最后编辑于&nbsp;2019-12-19">2019-12-19</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">js常规日期格式处理、月历渲染、倒计时函数</h2>
+            <div class="post-meta">
+                本文共计9639个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <blockquote>
+<p> 日期格式处理在前端的日常任务中非常常见，但是为此引入monent.js这样的类库又会显得有点臃肿，毕竟我们一个特定的项目中，并不需要monent.js那么全的涵盖范围。另外，如果现在公司让你自己手写一个日历组件（月历、周历），日历组件中需要耦合我们的其他业务需求，如果有一个任务列表，当11月22号的待进行任务，我需要在日历上有一个绿色圆点，表示当天有待办事项。下面介绍一些常规的函数，希望对大家有用。</p>
+</blockquote>
+<ul>
+<li>月历效果图</li>
+</ul>
+<div style="text-align: center;">
+  <img src='http://upload-images.jianshu.io/upload_images/712523-a79d48ae5ba89051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' width='40%'/>
+</div>
+
+
+<h5 id="函数目录"><a href="#函数目录" class="headerlink" title="函数目录"></a>函数目录</h5><ul>
+<li>getDayPrevAfter 获得n天前/后的日期；</li>
+<li>formatDateWithTimeZone 格式化日期带时区，ISO 8601；</li>
+<li>countDownBySecond 倒计时；</li>
+<li>monthSize 获得指定日期所在月的天数；</li>
+<li>getCalendarMonth 获得指定日期所在月的第一周到第四/五周的数据组合；</li>
+<li>getOneDateWeekIndex 获得指定的某天所在该月的第几周，下标从0开始；</li>
+</ul>
+<h5 id="下面是详细的说明："><a href="#下面是详细的说明：" class="headerlink" title="下面是详细的说明："></a>下面是详细的说明：</h5><ul>
+<li>getFormatDateStr</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [zeroPadding 小于10的数字补0，必填]</span><br><span class="line"> * @param  &#123;[Int]&#125; value [description]</span><br><span class="line"> * @return &#123;[String]&#125;       [description]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function zeroPadding(value)&#123;</span><br><span class="line">  return value &lt; 10 ? &#96;0$&#123;value&#125;&#96; : value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * [_isDateStrSeparatorCh 判断日期格式字符串的分隔符是否是中文]</span><br><span class="line"> * @param  &#123;[String]&#125; str [必填]</span><br><span class="line"> * @return &#123;[String]&#125;     [分隔符]</span><br><span class="line"> *&#x2F;</span><br><span class="line">function _getDateStrSeparator(str, startIndex, endIndex) &#123;</span><br><span class="line">  startIndex &#x3D; startIndex ? startIndex : 4;</span><br><span class="line">  endIndex &#x3D; endIndex ? endIndex : 5;</span><br><span class="line">  let separator &#x3D; str.slice(startIndex, endIndex);</span><br><span class="line">  if (separator &#x3D;&#x3D;&#x3D; &#39;年&#39; || separator &#x3D;&#x3D;&#x3D; &#39;月&#39; ) &#123;</span><br><span class="line">    separator &#x3D; &#39;Ch&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">  return separator;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * [_isDateStrSeparatorCh 判断日期格式字符串的分隔符是否是中文]</span><br><span class="line"> * @param  &#123;[String]&#125; str [必填]</span><br><span class="line"> * @return &#123;[String]&#125;     [分隔符]</span><br><span class="line"> *&#x2F;</span><br><span class="line">function _isDateStrSeparatorCh(str) &#123;</span><br><span class="line">  if ( str.indexOf(&#39;年&#39;)!&#x3D;-1 || str.indexOf(&#39;月&#39;)!&#x3D;-1 ) &#123;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>getDayPrevAfter</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [getDayPrevAfter 获得n天前&#x2F;后的日期]</span><br><span class="line"> * @param  &#123;[String]&#125; date    [日期，非必填参数，表示调用时的时间]</span><br><span class="line"> * @param  &#123;[String]&#125; type    [前一天还是后一天，非必填参数，默认后一天]</span><br><span class="line"> * @param  &#123;[Int]&#125; daysNum [天数，非必填参数，默认一天]</span><br><span class="line"> * @return &#123;[Date]&#125;         [description]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function getDayPrevAfter(date, type, daysNum) &#123;</span><br><span class="line"></span><br><span class="line">  date &#x3D; date ? date : new Date();</span><br><span class="line">  type &#x3D; type ? type : &#39;after&#39;;</span><br><span class="line">  daysNum &#x3D; daysNum ? daysNum : 1;</span><br><span class="line"></span><br><span class="line">  if ( !(date instanceof Date) ) &#123;</span><br><span class="line">    if ( date.indexOf(&#39;-&#39;) !&#x3D; -1 ) &#123;</span><br><span class="line">      date.replace(&#x2F;\-&#x2F;g,&#39;&#x2F;&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">    date &#x3D; new Date(date);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  let returnDate &#x3D; date;</span><br><span class="line">  if (type &#x3D;&#x3D;&#x3D; &#39;prev&#39;) &#123;</span><br><span class="line">    returnDate &#x3D; new Date(date.getTime() - (daysNum * 24 * 60 * 60 * 1000));</span><br><span class="line">  &#125; else if (type &#x3D;&#x3D;&#x3D; &#39;after&#39;) &#123;</span><br><span class="line">    returnDate &#x3D; new Date(date.getTime() + (daysNum * 24 * 60 * 60 * 1000));</span><br><span class="line">  &#125;</span><br><span class="line">  return returnDate;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>formatDateWithTimeZone</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [formatDateWithTimeZone 格式化日期带时区，ISO 8601]</span><br><span class="line"> * @param  &#123;[Date]&#125; date [日期，非必填参数，表示调用时的时间]</span><br><span class="line"> * @return &#123;[String]&#125;     [ISO 8601格式的日期，example: 2016-11-21T14:09:15+08:00]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function formatDateWithTimeZone(date) &#123;</span><br><span class="line"></span><br><span class="line">  date &#x3D; date ? date : new Date();</span><br><span class="line">  if ( !(date instanceof Date) ) &#123;</span><br><span class="line">    if ( date.indexOf(&#39;-&#39;) !&#x3D; -1 ) &#123;</span><br><span class="line">      date.replace(&#x2F;\-&#x2F;g,&#39;&#x2F;&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">    date &#x3D; new Date(date);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  let tzo &#x3D; -date.getTimezoneOffset(),</span><br><span class="line">      dif &#x3D; tzo &gt;&#x3D; 0 ? &#39;+&#39; : &#39;-&#39;,</span><br><span class="line">      pad &#x3D; function (num) &#123;</span><br><span class="line">          let norm &#x3D; Math.abs(Math.floor(num));</span><br><span class="line">          return zeroPadding(norm);</span><br><span class="line">      &#125;;</span><br><span class="line">	return &#96;$&#123;date.getFullYear()&#125;-$&#123;pad(date.getMonth() + 1)&#125;-$&#123;pad(date.getDate())&#125;T$&#123;pad(date.getHours())&#125;:$&#123;pad(date.getMinutes())&#125;:$&#123;pad(date.getSeconds())&#125;$&#123;dif&#125;$&#123;pad(tzo &#x2F; 60)&#125;:$&#123;pad(tzo % 60)&#125;&#96;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>countDownBySecond</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [countDownBySecond 倒计时]</span><br><span class="line"> * @param  &#123;[Int]&#125; restSeconds   [剩余秒数，必填]</span><br><span class="line"> * @param  &#123;[Int]&#125; timeInterval   [时间间隔，非必填，默认1000ms]</span><br><span class="line"> * @param  &#123;[Function]&#125; func   [每倒计时一次，就需要执行一次的回调函数名，非必填]</span><br><span class="line"> * @param  &#123;[Function]&#125; endFun [倒计时结束需要执行的函数名，非必填]</span><br><span class="line"> * @return &#123;[null]&#125;        [无返回值]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function countDownBySecond(restSeconds, timeInterval, func, endCallback) &#123;</span><br><span class="line">    let timer &#x3D; null;</span><br><span class="line">    let total &#x3D; restSeconds;</span><br><span class="line">    timeInterval &#x3D; timeInterval ? timeInterval : 1000;</span><br><span class="line">    timer &#x3D; setInterval(function() &#123;</span><br><span class="line">        --total;</span><br><span class="line">        if (total &lt;&#x3D; 0) &#123;</span><br><span class="line">            clearInterval(timer);</span><br><span class="line">            endCallback &amp;&amp; endCallback();</span><br><span class="line">        &#125;</span><br><span class="line">        func &amp;&amp; func(total);</span><br><span class="line">    &#125;, timeInterval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>monthSize</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [monthSize 获得指定日期所在月的天数]</span><br><span class="line"> * @param  &#123;[Date]&#125; oDate [指定的日期，非必填，默认为当天]</span><br><span class="line"> * @return &#123;[Int]&#125;       [总天数]</span><br><span class="line"> *&#x2F;</span><br><span class="line">function monthSize(oDate) &#123;</span><br><span class="line">    oDate &#x3D; oDate ? oDate : new Date();</span><br><span class="line">    let year &#x3D; oDate.getFullYear(),</span><br><span class="line">        month &#x3D; oDate.getMonth(),</span><br><span class="line">        _oDate &#x3D; new Date();</span><br><span class="line">    _oDate.setFullYear(year);</span><br><span class="line">    _oDate.setMonth(month + 1, 0);</span><br><span class="line">    return _oDate.getDate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>getCalendarMonth</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [getCalendarMonth 获得指定日期所在月的第一周到第四&#x2F;五周的数据组合，形如：</span><br><span class="line"> * [&#123;</span><br><span class="line">    &quot;date&quot;: &quot;2016&#x2F;10&#x2F;30&quot;, &#x2F;&#x2F;日期字符串</span><br><span class="line">    &quot;dateNum&quot;: 30,  &#x2F;&#x2F;日</span><br><span class="line">    &quot;isCurMonth&quot;: false, &#x2F;&#x2F;是否当前月</span><br><span class="line">    &quot;weekIndex&quot;: 0 &#x2F;&#x2F;是本月的第几周，下标从0开始</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">    &quot;date&quot;: &quot;2016&#x2F;10&#x2F;31&quot;,</span><br><span class="line">    &quot;dateNum&quot;: 31,</span><br><span class="line">    &quot;isCurMonth&quot;: false,</span><br><span class="line">    &quot;weekIndex&quot;: 0</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">    &quot;date&quot;: &quot;2016&#x2F;11&#x2F;1&quot;,</span><br><span class="line">    &quot;dateNum&quot;: 1,</span><br><span class="line">    &quot;day&quot;: 2,</span><br><span class="line">    &quot;isCurMonth&quot;: true,</span><br><span class="line">    &quot;isToday&quot;: false,</span><br><span class="line">    &quot;weekIndex&quot;: 0</span><br><span class="line">  &#125;]</span><br><span class="line">  ]</span><br><span class="line"> * @param  &#123;[Date]&#125; param [指定的日期，非必填，默认为当天]</span><br><span class="line"> * @return &#123;[Array]&#125;       [获得指定日期所在月的第一周到第四&#x2F;五周的数据组合]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function getCalendarMonth(date) &#123;</span><br><span class="line">    date &#x3D; date ? date : new Date();</span><br><span class="line">    let y &#x3D; date.getFullYear();</span><br><span class="line">    let m &#x3D; date.getMonth();</span><br><span class="line">    let _m;</span><br><span class="line">    let firstDay &#x3D; new Date(y, m, 1).getDay(); &#x2F;&#x2F;当月第一天 周期</span><br><span class="line">    let days &#x3D; monthSize(date);&#x2F;&#x2F;当月天数</span><br><span class="line">    let prevMonthDays &#x3D; monthSize(new Date(y, m - 1));&#x2F;&#x2F;上月天数</span><br><span class="line">    let initPrevDay &#x3D; prevMonthDays - firstDay;</span><br><span class="line">    let lines &#x3D; Math.ceil((firstDay + days) &#x2F; 7);</span><br><span class="line">    _m &#x3D; new Array(lines * 7);</span><br><span class="line">    let nextMonthDay &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    for (let i &#x3D; 0; i &lt; _m.length; i++) &#123;</span><br><span class="line">        let weekIndex &#x3D; parseInt(i &#x2F; 7);</span><br><span class="line">        if (i &lt; firstDay) &#123;</span><br><span class="line">            let date &#x3D; ++initPrevDay;</span><br><span class="line">            if (m &#x3D;&#x3D;&#x3D; 0 &amp;&amp; date &gt; 7) &#123;</span><br><span class="line">                _m[i] &#x3D; &#123;</span><br><span class="line">                    isCurMonth: false,</span><br><span class="line">                    dateNum: date,</span><br><span class="line">                    weekIndex,</span><br><span class="line">                    date: &#96;$&#123;y - 1&#125;&#x2F;$&#123;12&#125;&#x2F;$&#123;date&#125;&#96;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                _m[i] &#x3D; &#123;</span><br><span class="line">                    isCurMonth: false,</span><br><span class="line">                    dateNum: date,</span><br><span class="line">                    weekIndex,</span><br><span class="line">                    date: &#96;$&#123;y&#125;&#x2F;$&#123;m&#125;&#x2F;$&#123;date&#125;&#96;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else if (i &gt;&#x3D; (firstDay + days)) &#123;</span><br><span class="line">            let date &#x3D; ++nextMonthDay;</span><br><span class="line"></span><br><span class="line">            if (m &#x3D;&#x3D;&#x3D; 11 &amp;&amp; date &lt;&#x3D; 7) &#123;</span><br><span class="line">                _m[i] &#x3D; &#123;</span><br><span class="line">                    isCurMonth: false,</span><br><span class="line">                    dateNum: date,</span><br><span class="line">                    weekIndex,</span><br><span class="line">                    date: &#96;$&#123;y + 1&#125;&#x2F;$&#123;1&#125;&#x2F;$&#123;date&#125;&#96;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                _m[i] &#x3D; &#123;</span><br><span class="line">                    isCurMonth: false,</span><br><span class="line">                    dateNum: date,</span><br><span class="line">                    weekIndex,</span><br><span class="line">                    date: &#96;$&#123;y&#125;&#x2F;$&#123;m + 2&#125;&#x2F;$&#123;date&#125;&#96;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            let _date &#x3D; i - firstDay + 1;</span><br><span class="line">            let today &#x3D; new Date();</span><br><span class="line">            let today_y &#x3D; today.getFullYear();</span><br><span class="line">            let today_m &#x3D; today.getMonth();</span><br><span class="line">            let today_d &#x3D; today.getDate();</span><br><span class="line">            let isToday &#x3D; today_y &#x3D;&#x3D;&#x3D; y &amp;&amp; today_m &#x3D;&#x3D;&#x3D; m &amp;&amp; today_d &#x3D;&#x3D;&#x3D; _date ? true : false;</span><br><span class="line">            _m[i] &#x3D; &#123;</span><br><span class="line">                dateNum: _date, &#x2F;&#x2F;日期</span><br><span class="line">                day: i % 7, &#x2F;&#x2F;周期</span><br><span class="line">                weekIndex,</span><br><span class="line">                isCurMonth: true,</span><br><span class="line">                isToday,</span><br><span class="line">                date: &#96;$&#123;y&#125;&#x2F;$&#123;m + 1&#125;&#x2F;$&#123;_date&#125;&#96;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>getOneDateWeekIndex</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * [getOneDateWeekIndex 获得指定的某天所在该月的第几周，下标从0开始]</span><br><span class="line"> * @param  &#123;[Date]&#125; date [指定的日期，非必填，默认为当天]</span><br><span class="line"> * @return &#123;[Int]&#125;      [在该月的第几周]</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function getOneDateWeekIndex(date) &#123;</span><br><span class="line">    date &#x3D; date ? date : new Date();</span><br><span class="line">    let monthDays &#x3D; getCalendarMonth(date);</span><br><span class="line">    let dateString &#x3D; getFormatDateStr(date, &#39;&#x2F;&#39;, true, false, false);</span><br><span class="line">    let returnDate &#x3D; monthDays.filter(item &#x3D;&gt; &#123;</span><br><span class="line">        return item.date &#x3D;&#x3D;&#x3D; dateString;</span><br><span class="line">    &#125;);</span><br><span class="line">    let weekIndex &#x3D; returnDate[0].weekIndex;</span><br><span class="line">    return weekIndex ? weekIndex : 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="用上面的函数就能够实现日期格式转换，倒计时，自定义月历等常规的需要，希望对您有用"><a href="#用上面的函数就能够实现日期格式转换，倒计时，自定义月历等常规的需要，希望对您有用" class="headerlink" title="用上面的函数就能够实现日期格式转换，倒计时，自定义月历等常规的需要，希望对您有用~"></a>用上面的函数就能够实现日期格式转换，倒计时，自定义月历等常规的需要，希望对您有用~</h5>
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
