@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>【你应该掌握的】宏任务、微任务（知识点面试高频） - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="宏任务、微任务">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">高扬</a>
+                    <span title="最后编辑于&nbsp;2019-12-24">2019-12-24</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">【你应该掌握的】宏任务、微任务（知识点面试高频）</h2>
+            <div class="post-meta">
+                本文共计4416个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <p><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f3761c88035770?w=750&h=300&f=jpeg&s=20067" alt=""></p>
+<h2 id="背景-amp-目的"><a href="#背景-amp-目的" class="headerlink" title="背景&amp;目的"></a>背景&amp;目的</h2><p>在前端面试过程中经常会问到关于代码执行顺序的问题，通常考察的是对浏览器的事件循环、宏任务及微任务的理解深度。掌握这些，对于日常写代码、面试都有帮助。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先，我们先来看一道题 <strong>题1：</strong></p>
+<p>（大家可以边看边在心里想出自己觉得正确的答案，下面每道题都会带有gif格式图片的题目解析，帮助大家理解~ ps:<br>图中数字代表代码行数）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(1);</span><br><span class="line">2 setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">3   console.log(2);</span><br><span class="line">4   Promise.resolve().then(() &#x3D;&gt; &#123;</span><br><span class="line">5     console.log(3);</span><br><span class="line">6   &#125;);</span><br><span class="line">7 &#125;, 0);</span><br><span class="line">8 new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">9   console.log(4);</span><br><span class="line">10   resolve(5);</span><br><span class="line">11 &#125;).then((data) &#x3D;&gt; &#123;</span><br><span class="line">12   console.log(data);</span><br><span class="line">13 &#125;);</span><br><span class="line">14 setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">15   console.log(6);</span><br><span class="line">16 &#125;, 0);</span><br></pre></td></tr></table></figure>
+
+<p>答案是：<strong>1 4 5 2 3 6</strong></p>
+<p>这道题其实考察的是对浏览器中事件循环的了解程度。众所周知，浏览器中JS代码单线程执行，所有的同步代码在主线程中执行，形成执行栈。那浏览器中的异步机制是如何实现的呢？<br>首先，异步任务会被依次放入异步任务队列中，当主线程中的同步任务完成以后，浏览器会轮询去异步任务队列中取出异步任务来执行。</p>
+<p>JS代码中的异步任务可进一步分为宏任务（macrotask）与微任务（microtask）。<br><strong>宏任务</strong>包括：<strong>script代码、setTimeout、setInterval、I/O、UI render</strong><br><strong>微任务</strong>包括：<strong>promise.then、Object.observe(已废弃)、MutationObserver</strong></p>
+<p>宏任务和微任务会被加入各自的队列中。<br>当主线程执行完毕后，浏览器会先去清空微任务队列，依次取出微任务队列中的微任务执行，执行过程中如果产生新的微任务，则追加到<strong>当前</strong>微任务队列的末尾等待执行。<br>当微任务队列清空后，浏览器会从宏任务队列中取出<strong>一个</strong>宏任务执行。宏任务执行完毕再去清空微任务队列，微任务队列清空后再取出一个宏任务来执行。如此反复，直至宏任务队列和微任务队列全部清空。<br><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f375d45d4b2e83?w=925&h=603&f=png&s=50725" alt="浏览器事件循环流程图"><br>需要注意的是，宏任务和微任务队列中新产生的微任务都会追加到<strong>当前</strong>微任务队列队尾等待执行，而不是追加到下一个循环的微任务队列中。因此如果微任务队列的清空过程中持续产生新的微任务，会造成微任务卡死。<br>此时再回看题1，可得出如下结论：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f375d96112836f?w=1152&h=738&f=gif&s=436301" alt="题1代码执行顺序"><br>输出与答案一致。</p>
+<p><strong>题2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1 setTimeout(function()&#123;</span><br><span class="line">2   console.log(&#39;1&#39;)</span><br><span class="line">3 &#125;);</span><br><span class="line">4 new Promise(function(resolve)&#123;</span><br><span class="line">5   console.log(&#39;2&#39;);</span><br><span class="line">6   resolve();</span><br><span class="line">7 &#125;).then(function()&#123;</span><br><span class="line">8   console.log(&#39;3&#39;)</span><br><span class="line">9 &#125;);</span><br><span class="line">10 console.log(&#39;4&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>答案：<strong>2 4 3 1</strong></p>
+<p>在分析当前代码时需要注意的是，Promise对象的<strong>resolve部分的代码是当前主线程/宏任务的一部分</strong>，并<strong>不是微任务</strong>，Promise对象的then和catch代码段才是微任务。因此最先输出的是2和4，然后才是微任务队列中的3，最后是宏任务中的1。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f375fa5969cca5?w=1094&h=748&f=gif&s=397114" alt="题2代码执行顺序"></p>
+<p>题3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1 async function async1() &#123;</span><br><span class="line">2   console.log(1); </span><br><span class="line">3   const result &#x3D; await async2(); </span><br><span class="line">4   console.log(3); </span><br><span class="line">5 &#125; </span><br><span class="line">6 async function async2() &#123; </span><br><span class="line">7   console.log(2); </span><br><span class="line">8 &#125; </span><br><span class="line">9 Promise.resolve().then(() &#x3D;&gt; &#123; </span><br><span class="line">10   console.log(4); </span><br><span class="line">11 &#125;); </span><br><span class="line">12 setTimeout(() &#x3D;&gt; &#123; </span><br><span class="line">13   console.log(5); </span><br><span class="line">14 &#125;); </span><br><span class="line">15 async1(); </span><br><span class="line">16 console.log(6);</span><br></pre></td></tr></table></figure>
+
+<p>答案：<strong>1 2 6 4 3 5</strong></p>
+<p>该题需要注意的是，由于await方法返回的是一个<strong>Promise对象</strong>，因此await方法执行完毕后续的代码都应该归入微任务队列，因此<strong>console.log(3)</strong>应该被加入微任务队列等待执行。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f375f15527dff0?w=1080&h=834&f=gif&s=520051" alt="题3代码执行顺序"></p>
+<p>题4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 function sleep(time) &#123;</span><br><span class="line">2   let startTime &#x3D; new Date()</span><br><span class="line">3   while (new Date() - startTime &lt; time) &#123;&#125;</span><br><span class="line">4   console.log(&#39;1s over&#39;)</span><br><span class="line">5 &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">1 function sleep(time) &#123;</span><br><span class="line">2   let startTime &#x3D; new Date()</span><br><span class="line">3   while (new Date() - startTime &lt; time) &#123;&#125;</span><br><span class="line">4   console.log(&#39;1s over&#39;)</span><br><span class="line">5 &#125;</span><br><span class="line">6 setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">7   console.log(&#39;setTimeout - 1&#39;)</span><br><span class="line">8   setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">9     console.log(&#39;setTimeout - 1 - 1&#39;)</span><br><span class="line">10     sleep(1000)</span><br><span class="line">11   &#125;)</span><br><span class="line">12   new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">13     console.log(&#39;setTimeout - 1 - resolve&#39;)</span><br><span class="line">14     resolve() </span><br><span class="line">15   &#125;).then(() &#x3D;&gt; &#123;</span><br><span class="line">16     console.log(&#39;setTimeout - 1 - then&#39;)</span><br><span class="line">17     new Promise(resolve &#x3D;&gt; resolve()).then(() &#x3D;&gt; &#123;</span><br><span class="line">18         console.log(&#39;setTimeout - 1 - then - then&#39;)</span><br><span class="line">19     &#125;)</span><br><span class="line">20   &#125;)</span><br><span class="line">21   sleep(1000)</span><br><span class="line">22 &#125;)</span><br><span class="line">23 setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">24   console.log(&#39;setTimeout - 2&#39;)</span><br><span class="line">25   setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">26     console.log(&#39;setTimeout - 2 - 1&#39;)</span><br><span class="line">27     sleep(1000)</span><br><span class="line">28   &#125;)</span><br><span class="line">29   new Promise(resolve &#x3D;&gt; resolve()).then(() &#x3D;&gt; &#123;</span><br><span class="line">30     console.log(&#39;setTimeout - 2 - then&#39;)</span><br><span class="line">31     new Promise(resolve &#x3D;&gt; resolve()).then(() &#x3D;&gt; &#123;</span><br><span class="line">32         console.log(&#39;setTimeout - 2 - then - then&#39;)</span><br><span class="line">33     &#125;)</span><br><span class="line">34   &#125;)</span><br><span class="line">35   sleep(1000)</span><br><span class="line">36 &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>浏览器输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout - 1</span><br><span class="line">setTimeout - 1 - resolve</span><br><span class="line">1s over</span><br><span class="line">setTimeout - 1 - then</span><br><span class="line">setTimeout - 1 - then - then </span><br><span class="line">setTimeout - 2</span><br><span class="line">1s over</span><br><span class="line">setTimeout - 2 - then</span><br><span class="line">setTimeout - 2 - then - then</span><br><span class="line">setTimeout - 1 - 1</span><br><span class="line">1s over</span><br><span class="line">setTimeout - 2 - 1</span><br><span class="line">1s over</span><br></pre></td></tr></table></figure>
+
+<p>该题需要注意的是微任务执行过程中产生的新的微任务也是<strong>追加在当前微任务队列末尾</strong>等待执行。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/24/16f376007f6b3123?w=1454&h=1080&f=gif&s=1152125" alt="题4代码执行顺序"></p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>浏览器中的事件循环机制较为简单，如果将主线程也看作一个宏任务的话，那么浏览器的事件循环机制可看作依次执行以下1、2两点：</p>
+<ul>
+<li>从宏任务队列中取出一个宏任务执行</li>
+<li>清空微任务队列<br> 如下面的伪代码所示：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(true) &#123; </span><br><span class="line">  宏任务队列.shift(); </span><br><span class="line">  微任务队列全部任务;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>需要注意的是：</p>
+<ul>
+<li><p>宏任务队列和微任务队列都遵循<strong>先进先出</strong>原则，先被加入队列的任务优先被取出执行</p>
+</li>
+<li><p>Promise对象的resolve部分不是微任务，then和catch部分才是，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Promise((resolve,reject) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;同步&#39;);</span><br><span class="line">  resolve(); </span><br><span class="line">&#125;).then(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;异步&#39;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>微任务执行过程中产生的新的微任务追加到<strong>当前</strong>微任务队列队尾等待<strong>本轮</strong>事件循环执行</p>
+</li>
+<li><p><strong>await方法返回的是一个Promise对象</strong>，因此await方法执行完毕，后续代码都应归入微任务队列(可结合题4理解)</p>
+</li>
+<li><p>Node环境的事件循环与浏览器不完全一致</p>
+</li>
+</ul>
+<h4 id="希望本文对大家有帮助。"><a href="#希望本文对大家有帮助。" class="headerlink" title="希望本文对大家有帮助。"></a>希望本文对大家有帮助。</h4>
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
