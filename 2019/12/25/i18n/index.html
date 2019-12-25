@@ -1,0 +1,434 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>【你应该了解的】前端通用国际化解决方案 - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="国际化">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">王芬</a>
+                    <span title="最后编辑于&nbsp;2019-12-25">2019-12-25</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">【你应该了解的】前端通用国际化解决方案</h2>
+            <div class="post-meta">
+                本文共计8723个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <h2 id="国际化背景"><a href="#国际化背景" class="headerlink" title="国际化背景"></a>国际化背景</h2><p>前端技术日新月异，技术栈繁多。以前端框架来说有<code>React</code>, <code>Vue</code>, <code>Angular</code>等等，再配以<code>webpack</code>, <code>gulp</code>等等构建工具去满足日常的开发工作。同时在日常的工作当中，不同的项目使用的技术栈也会不一样。当需要对部分项目进行国际化改造时，由于技术栈的差异，这时你需要去寻找和当前项目使用的技术栈相匹配的国际化的插件工具。比如:</p>
+<ul>
+<li><code>vue</code> + <code>vue-i18n</code></li>
+<li><code>angular</code> + <code>angular-translate</code></li>
+<li><code>react</code> + <code>react-intl</code></li>
+<li><code>jquery</code> + <code>jquery.i18n.property</code></li>
+</ul>
+<p>等等，同时可能有些页面没有使用框架，或者完全是没有进行工程化的静态前端页面。</p>
+<p>为了减少由于不同技术栈所带来的学习相关国际化插件的成本及开发过程中可能遇到的国际化坑，在尝试着分析前端国际化所面临的主要问题及相关的解决方案后，我觉得是可以使用更加通用的技术方案去完成国际化的工作。</p>
+<h2 id="本文目的"><a href="#本文目的" class="headerlink" title="本文目的"></a>本文目的</h2><p>将页面显示的信息翻译成不同语言，可以根据不同语言开发多个版本，然后根据用户选择的语言显示不同的页面。但是这样需要很高的成本，而且维护起来也很麻烦，一个地方有问题就要修改所有版本。本文的初衷是为了寻找一种比较通用的国际化解决方案。</p>
+<h2 id="国际化需要考虑的问题"><a href="#国际化需要考虑的问题" class="headerlink" title="国际化需要考虑的问题"></a>国际化需要考虑的问题</h2><h4 id="1-文案翻译"><a href="#1-文案翻译" class="headerlink" title="1.文案翻译"></a><strong>1.文案翻译</strong></h4><ul>
+<li><p>静态文案翻译(前端静态模板文案)</p>
+<blockquote>
+<p>使用i18n国际化插件匹配字典重新赋值（预估工作量相当大）</p>
+</blockquote>
+</li>
+<li><p>动态文案翻译(<code>server</code>端下发的动态数据)</p>
+</li>
+</ul>
+<h4 id="2-样式"><a href="#2-样式" class="headerlink" title="2.样式"></a><strong>2.样式</strong></h4><ul>
+<li><p>不同语言长度不一样造成的样式错乱</p>
+<p>例如：elementui中英文切换时 table表行、表头错位问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">表行、表头错位问题的解决方法：</span><br><span class="line"> &lt;el-table-column </span><br><span class="line">	prop&#x3D;&quot;a&quot; </span><br><span class="line">	:label&#x3D;&quot;$t(&#39;b.c&#39;)&quot;</span><br><span class="line">	show-overflow-tooltip&#x3D;&quot;true&quot;</span><br><span class="line"> 	:width&#x3D;&quot;($t(&#39;b.c&#39;)).length*18&quot;</span><br><span class="line">  &gt;</span><br><span class="line"> </span><br><span class="line">其中：</span><br><span class="line">1. show-overflow-tooltip&#x3D;&quot;true&quot;表示内容超出宽度后省略号表示</span><br><span class="line">2. a表示绑定的数据</span><br><span class="line">3. b.c表示国际化zh.js,en.js中对应显示的表头名称</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>h5样式问题，中英文长度不同，布局错乱</p>
+<p>解决方法：</p>
+<p>在最上层html的div上添加一个可以动态切换class的变量，以改变项目的父级的class名称，实现切换语言的同时切换css样式。如下栗子：</p>
+<h5 id="HTML部分"><a href="#HTML部分" class="headerlink" title="HTML部分"></a>HTML部分</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div :class&#x3D;&quot;langCss&quot;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Js部分"><a href="#Js部分" class="headerlink" title="Js部分"></a>Js部分</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在data中定义保存class的变量</span><br><span class="line">data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      langCss:window.localStorage.getItem(&#39;lang&#39;)||&#39;zh&#39;,</span><br><span class="line">      &#x2F;&#x2F;先去取localStorage里保存的语言，如果没有，那么就默认中文</span><br><span class="line">      &#x2F;&#x2F;这么做的意义是为了用户在刷新页面的时候样式不丢失。</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>紧接着在我们的switchlLang函数后添加新的一行，以便在切换语言的同时切换class。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">switchLang(lang)  &#123;</span><br><span class="line">    this.$i18n.locale &#x3D; lang </span><br><span class="line">    localStorage.setItem(&#39;lang&#39;,lang);</span><br><span class="line">    this.langCss&#x3D;lang;&#x2F;&#x2F;新添加的，以便切换父级class</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Css部分"><a href="#Css部分" class="headerlink" title="Css部分"></a>Css部分</h5><p>在style标签中中设置你想要的样式，我这边以改变文字颜色为例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.en button &#123;</span><br><span class="line">  color: steelblue;</span><br><span class="line">&#125;</span><br><span class="line">.zh button &#123;</span><br><span class="line">  color: #666;</span><br><span class="line">&#125;</span><br><span class="line">.ja button &#123;</span><br><span class="line">  color: seagreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<pre><code>&gt; 样式错乱解决方法小结：
+&gt;
+&gt; 1、写页面时包裹容器尽量不要写死宽高等
+&gt; 2、语言变量写在最外层，里面包裹其他class
+&gt;
+&gt; 3、还可以给元素设置一个父元素，避免样式互相影响，然后再使用这个语言变量控制class
+&gt;
+&gt; 4、还有一种方法（就是溢出隐藏）： overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+&gt;
+&gt; 5、h5最好使用自适应布局</code></pre><ul>
+<li>图片的替换</li>
+</ul>
+<h4 id="3-时区问题"><a href="#3-时区问题" class="headerlink" title="3.时区问题"></a><strong>3.时区问题</strong></h4><p>以泰国举例，相关数据库部署在泰国。如果在中国创建一条数据插入泰国数据库，通过时间控件选择数据的创建时间，这时获取的时间是从浏览器获取 为中国时区时间。需要把这个时间传到后端服务器，存储到数据库，但服务器的时间为泰国时区的时间。中国是东八区 泰国是东七区，相差一个小时。这就会导致两个问题：</p>
+<pre><code>a、创建数据：在前端选的8:00，落到数据库中就会变为7：00
+
+b、数据查询时的错觉：在前端选择查询8点到9点创建的数据，到后端经过转换会变为查找7:00到8点的消息，返回的数据又会带有相应的时区，导致，数据的一种假象。以为查的是8点到9点创建的数据，而实际看到的是7:00到8点的消息。</code></pre><p>问题追踪发现，前端传过来的时间，在经过java时间格式转换后会转换为对应时区的时间。</p>
+<blockquote>
+<p>时区问题解决：</p>
+<p>1、这种问题一般数据库的时区设置为UTC时间，前端传的数据增加时区的字段，标识自己是哪个时区，后端将这个时间转为UTC时区传给数据库，同时，数据库返回的时间再转为前端需要的时区传递出去，这样会有效避免时区问题。</p>
+<p>2、既然我们的数据库已经是当地的时区，无法改变，那一种有效的做法时，登录页面前做个选择时区的页面，用户选择切换到对应的时区，访问对应的数据源。</p>
+<p>3、另外一种简单的做法：所有前端的时间去掉时间格式，作为字符串与后端交互。后端将时间转换为字符串传给前端，前端的时间同样处理为字符串传给后端，后端做时间处理，这样就可避免时区问题，做到前端时间可见即可得（前端展示什么，库中就是什么时间）</p>
+</blockquote>
+<h4 id="4-map语言映射表维护"><a href="#4-map语言映射表维护" class="headerlink" title="4.map语言映射表维护"></a>4.map语言映射表维护</h4><h4 id="5-第三方服务"><a href="#5-第三方服务" class="headerlink" title="5.第三方服务"></a><strong>5.第三方服务</strong></h4><ul>
+<li>SDK</li>
+</ul>
+<h4 id="6-本地化"><a href="#6-本地化" class="headerlink" title="6.本地化"></a><strong>6.本地化</strong></h4><ul>
+<li><p>货币单位</p>
+<blockquote>
+<p>使用阿拉伯数字，货币单位使用฿，要增加货币格式化工具函数处理</p>
+</blockquote>
+</li>
+<li><p>时间格式</p>
+</li>
+</ul>
+<h4 id="8-长文案加变量的翻译问题"><a href="#8-长文案加变量的翻译问题" class="headerlink" title="8.长文案加变量的翻译问题"></a>8.长文案加变量的翻译问题</h4><ul>
+<li><p>在翻译这样一句话 <code>我被用户 xxx 拉进一个群聊</code>的时候。英文的翻译是<code>I was dragged into a group chat by user xxx</code>。xxx出现的地方不一致这个时候我们就不能简单的直接设置<code>en.js</code>和<code>zh,js</code>进行转换。</p>
+</li>
+<li><p>我们这里可以把这变量用一个字符替换，然后封装函数匹配变量进行替换 <code>我被用户 %s 拉进一个群聊</code>，<code>I was dragged into a group chat by user %s</code></p>
+</li>
+<li><p>封装函数代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function tplParse(tpl, params) &#123;</span><br><span class="line">    let counter &#x3D; 0;</span><br><span class="line">    if (params &amp;&amp; params.length &gt; 0) &#123;</span><br><span class="line">    let match;</span><br><span class="line">    while(match &#x3D; tpl.match(&#x2F;%s&#x2F;)) &#123;</span><br><span class="line">    tpl &#x3D; tpl.slice(0, match.index) + params[counter] +tpl.slice(match.index + 2);</span><br><span class="line">    counter ++;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return tpl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第一个参数是需要替换的文案，第二个参数就是替换的变量</p>
+</li>
+</ul>
+<h4 id="9-切换语言的时候遍历的数据无法生效"><a href="#9-切换语言的时候遍历的数据无法生效" class="headerlink" title="9.切换语言的时候遍历的数据无法生效"></a>9.切换语言的时候遍历的数据无法生效</h4><ul>
+<li>在切换语言的时候我们会发现，<code>router</code>的<code>index.js</code>中的语言无法切换。这是因为data是一次性生产的，平常的写法只能是在 data 初始化的时候拿到这些被国际化的值，并不能响应变化。查阅文案给出的方案是需要遍历的数据通过computed重新计算一遍在返回。由于出现的地方较多这种方案实现起来太复杂。暂时的解决方案是切换语言的时候刷新页面。</li>
+</ul>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>在日常的开发过程当中，遇到的最多的需要国际化的场景是：<code>语言翻译</code>,<code>样式</code>,<code>map表维护</code>及<code>打包方案</code>。接下来针对这几块内容并结合日常的开发流程说明国际化的通用解决方案。</p>
+<p>首先来看下当前开发环境可能用的技术栈：</p>
+<ol>
+<li>使用了构建工具<ul>
+<li><code>webpack</code></li>
+<li><code>gulp</code></li>
+<li>…</li>
+</ul>
+</li>
+</ol>
+<p>基于这些构建工具，使用:</p>
+<ul>
+<li><code>Vue</code></li>
+<li><code>Angular</code></li>
+<li><code>React</code></li>
+<li>…</li>
+<li>未使用任何<code>framework</code></li>
+</ul>
+<ol start="2">
+<li>未使用构建工具<ul>
+<li>使用了<code>jquery</code>或<code>zepto</code>等类库</li>
+<li>原生<code>js</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="常见型"><a href="#常见型" class="headerlink" title="常见型"></a><strong>常见型</strong></h3><p>常见的前端国际化方法步骤如下：（原理）</p>
+<ul>
+<li><p>定义国际化配置</p>
+</li>
+<li><p>根据环境读取配置</p>
+</li>
+<li><p>将配置展现在页面上</p>
+</li>
+</ul>
+<p>展开说：</p>
+<ol>
+<li>定义国际化配置：<br>定义的方式有多种，多以文件的形式单独保存，如json，js，properties 等，<br>并且将配置信息以键值对的形式保存备用</li>
+<li>根据环境读取配置：<br>所谓环境说白了就是用户选择的标志，形式如下：<br><strong>hash型</strong>：#cn; #en; #us<br><strong>saerch型</strong>：?lan=cn; ?lan=en; ?lan=us<br><strong>url/meta型</strong>： 163.com/cn/; 163.com/en<br><strong>缓存型</strong>：缓存形式多为cookie，默认cn，用户重新设定后将缓存更新</li>
+<li>将配置展现在页面上：<br>使用三方插件或者自己编写插件将配置信息映射到页面上，<br>可以使用，juery.i18n.js 或 react、angular国际化插件等regular暂无插件<br>插件的基本原理都是做字典查询键值匹配替换。</li>
+</ol>
+<p>以上三步任意组合都可以完成国际化的任务，只是效率各有不同，可根据项目做自由组合</p>
+<h3 id="不常见型"><a href="#不常见型" class="headerlink" title="不常见型"></a>不常见型</h3><p>不常见的方法步骤如下：（原理）</p>
+<ul>
+<li><p>将国际化配置分散在各个文件中如：<br><code>&lt;a class=&#39;i18n&#39;&gt;登录|登入|Sign in|サインイン|로그인&lt;/a&gt;</code></p>
+</li>
+<li><p>根据环境确定国际化标记：<br>cn:0, tw:1, en:2, jp:3, kr:4</p>
+</li>
+<li><p>根据国际化标记显示相应信息<br>全局搜索class=i18n的元素，保留相应信息</p>
+</li>
+</ul>
+<h3 id="极端型"><a href="#极端型" class="headerlink" title="极端型"></a>极端型</h3><ul>
+<li>使用google翻译插件</li>
+</ul>
+<h3 id="通用的解决方案-di18n-translate"><a href="#通用的解决方案-di18n-translate" class="headerlink" title="通用的解决方案[di18n-translate]"></a>通用的解决方案[di18n-translate]</h3><p>综合不同的构建工具，开发框架及类库，针对不同的开发环境似乎是可以找到一个比较通用的国际化的方案的。</p>
+<p>这个方案的大致思路就是:通过构建工具去完成<code>样式</code>, <code>图片替换</code>, <code>class属性</code>等的替换工作，在业务代码中不会出现过多的因国际化而多出的变量名，同时使用一个通用的翻译函数去完成<code>静态文案</code>及<code>动态文案</code>的翻译工作，而不用使用不同框架提供的相应的国际化插件。简单点来说就是:</p>
+<ul>
+<li>依据你使用的<code>构建工具</code> + 一个通用的<code>翻译函数</code>去完成前端国际化</li>
+</ul>
+<p>首先，这个通用的<strong>语言翻译函数</strong>: <a href="https://www.npmjs.com/package/di18n-translate" target="_blank" rel="noopener">di18n-translate</a>。它所提供的功能就是静态和动态文案的翻译, 不依赖开发框架及构建工具。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install di18n-translate</span><br></pre></td></tr></table></figure>
+
+<p>这个时候你只需要将这个通用的翻译函数以适当的方式集成到你的开发框架当中去。</p>
+<p>接下来会结合具体的不同场景去说明下相应的解决方案：</p>
+<h3 id="1-使用MVVM类的框架"><a href="#1-使用MVVM类的框架" class="headerlink" title="1.使用MVVM类的框架"></a>1.使用<code>MVVM</code>类的框架</h3><p>使用了<code>MVVM</code>类的<code>framework</code>时，可以借助<code>framework</code>帮你完成<code>view</code>层的渲染工作, 那么你可以在代码当中轻松的通过代码去控制<code>class</code>的内容, 以及不同语言环境下的图片替换工作.</p>
+<p>例如<code>vue</code>, <strong>示例(1)</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">app.vue文件:</span><br><span class="line">  &lt;template&gt;</span><br><span class="line">    &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"desc"</span></span><br><span class="line">      :<span class="class"><span class="keyword">class</span></span>=<span class="string">"locale"</span>   <span class="comment">// locale这个变量去控制class的内容</span></span><br><span class="line">      :style=<span class="string">"&#123;backgroundImage: 'url(' + bgImg + ')'&#125;"</span>  <span class="comment">// bgImg去控制背景图片的路径</span></span><br><span class="line">    &gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">    &lt;img :src=<span class="string">"imgSrc"</span>&gt; <span class="comment">// imgSrc去控制图片路径</span></span><br><span class="line">    &lt;p&gt;&#123;&#123;title&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">      name: <span class="string">'page'</span>,</span><br><span class="line">      data () &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          locale: LOCALE,</span><br><span class="line">          imgSrc: <span class="built_in">require</span>(<span class="string">`./images/<span class="subst">$&#123;LOCALE&#125;</span>/<span class="subst">$&#123;LOCALE&#125;</span>.png`</span>),,</span><br><span class="line">          bgImg: <span class="built_in">require</span>(<span class="string">`./images/<span class="subst">$&#123;LOCALE&#125;</span>/<span class="subst">$&#123;LOCALE&#125;</span>.png`</span>),,</span><br><span class="line">          title: <span class="keyword">this</span>.di18n.$t(<span class="string">'你好'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候你再加入翻译函数，就可以满足大部分的国际化的场景了,现在在<code>main.js</code>中添加对翻译函数<code>di18n-translate</code>的引用:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">main.js文件:</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.LOCALE = <span class="string">'en'</span></span><br><span class="line"><span class="keyword">const</span> DI18n = <span class="built_in">require</span>(<span class="string">'di18n-translate'</span>)</span><br><span class="line"><span class="keyword">const</span> di18n = <span class="keyword">new</span> DI18n(&#123;</span><br><span class="line">    locale: LOCALE,       <span class="comment">// 语言环境</span></span><br><span class="line">    isReplace: <span class="literal">false</span>,   <span class="comment">// 是否进行替换(适用于没有使用任何构建工具开发流程)</span></span><br><span class="line">    messages: &#123;         <span class="comment">// 语言映射表</span></span><br><span class="line">      en: &#123;</span><br><span class="line">        你好: <span class="string">'Hello, &#123;person&#125;'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      zh: &#123;</span><br><span class="line">        你好: <span class="string">'你好, &#123;person&#125;'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">Vue.prototype.d18n = di18n</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>mvvm framework</code>进行国际化，上述方式应该是较为合适的，主要是借助了<code>framework</code>帮你完成<code>view</code>层的渲染工作, 然后再引入一个翻译函数去完成一些动态文案的翻译工作</p>
+<p>这种国际化的方式算是运行时处理，不管是开发还是最终上线都只需要一份代码。</p>
+<h3 id="2-偏展示性网页"><a href="#2-偏展示性网页" class="headerlink" title="2.偏展示性网页"></a>2.偏展示性网页</h3><p><code>html</code>文件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"wrapper"</span> i18n-<span class="class"><span class="keyword">class</span></span>=<span class="string">"$&#123;locale&#125;"</span>&gt;</span><br><span class="line">  &lt;img i18n-img=<span class="string">"/images/$&#123;locale&#125;/test.png"</span>&gt;</span><br><span class="line">  &lt;input i18n-placeholder=<span class="string">"你好"</span>&gt;</span><br><span class="line">  &lt;p i18n-content=<span class="string">"你好"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行时:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"[PATH]/di18-translate/index.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">const</span> LOCALE = <span class="string">'en'</span></span><br><span class="line">  <span class="keyword">const</span> di18n = <span class="keyword">new</span> DI18n(&#123;</span><br><span class="line">    locale: LOCALE,</span><br><span class="line">    isReplace: <span class="literal">true</span>,   <span class="comment">// 开启运行时</span></span><br><span class="line">    messages: &#123;</span><br><span class="line">      en: &#123;</span><br><span class="line">        你好: <span class="string">'Hello'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      zh: &#123;</span><br><span class="line">        你好: <span class="string">'你好'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后<code>html</code>会转化为:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"wrapper en"</span>&gt;</span><br><span class="line">  &lt;img src=<span class="string">"/images/en/test.png"</span>&gt;</span><br><span class="line">  &lt;input placeholder=<span class="string">"Hello"</span>&gt;</span><br><span class="line">  &lt;p&gt;Hello&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用构建工具"><a href="#3-使用构建工具" class="headerlink" title="3.使用构建工具"></a>3.使用构建工具</h3><p>接下来继续说下借助构建工具进行模块化开发的项目, 这些项目可能最后页面上的<code>DOM</code>都是通过<code>js</code>去动态插入到页面当中的。<br><code>html</code>文件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"wrapper $&#123;locale&#125;"</span>&gt;</span><br><span class="line">  &lt;img src=<span class="string">"/images/$&#123;locale&#125;/test.png"</span>&gt;</span><br><span class="line">  &lt;p&gt;$t(<span class="string">'你好'</span>)&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>js</code>文件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> tpl = <span class="built_in">require</span>(<span class="string">'./index.html'</span>)</span><br><span class="line"><span class="keyword">let</span> wrapper = <span class="built_in">document</span>.querySelector(<span class="string">'.content'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// di18n.$html方法即对你所加载的html字符串进行replace,最后相对应的语言版本</span></span><br><span class="line">wrapper.innerHTML = di18n.$html(tpl)</span><br></pre></td></tr></table></figure>
+
+<p>最后插入到的页面当中的<code>DOM</code>为:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"wrapper en"</span>&gt;</span><br><span class="line">  &lt;img src=<span class="string">"/images/en/test.png"</span>&gt;</span><br><span class="line">  &lt;p&gt;Hello&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候动态翻译再借助引入的<code>di18n</code>上的<code>$t</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">di18n.$t(<span class="string">'你好'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这种开发方式也属于运行时处理，开发和上线后只需要维护一份代码。</p>
+<h2 id="国际化的实现原理"><a href="#国际化的实现原理" class="headerlink" title="国际化的实现原理"></a><strong>国际化的实现原理</strong></h2><p>其实原理很简单，这里只讲最基本的原理，不谈框架的特性。</p>
+<p>文章最上面列举的框架，有一个共同的特征，就是都有一个类似语言包的东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zh.json</span><br><span class="line">en.json</span><br><span class="line">jp.json</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>这个也很好理解，把各种语言独立开来，便于管理和维护。</p>
+<p>便于测试，我们把请求的过程去掉了，直接写在一个<strong>json</strong>对象里面，如下</p>
+<p><strong>intl.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var intl &#x3D; </span><br><span class="line">&#123;</span><br><span class="line">    &quot;zh&quot;: &#123;</span><br><span class="line">        &quot;title&quot;: &quot;测试&quot;,</span><br><span class="line">        &quot;content&quot;: &quot;这是一个测试&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;cn&quot;: &#123;</span><br><span class="line">        &quot;title&quot;: &quot;test&quot;,</span><br><span class="line">        &quot;content&quot;: &quot;this is a test&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大概会写一些这样的配置语言，然后通过某种手段把对应的字段设置到相应的位置就可以了。</p>
+<p><em>下面是伪代码</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2 id&#x3D;&quot;title&quot;&gt;测试&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;p id&#x3D;&quot;content&quot;&gt;这是一个测试&lt;&#x2F;p&gt;</span><br><span class="line">var lang &#x3D; getGlobalVar(&#39;LOCALE&#39;)||&#39;zh&#39;;&#x2F;&#x2F;获取语言</span><br><span class="line">var local &#x3D; intl[&#39;lang&#39;];</span><br><span class="line"></span><br><span class="line">$title.innerHTML &#x3D; local[&#39;title&#39;];</span><br><span class="line">$content.innerHTML &#x3D; local[&#39;content&#39;];</span><br></pre></td></tr></table></figure>
+
+<p>上面是一个简单的实现思路，如果是一个简单的静态页面，大可以用这种方式，也不需要引入一些第三方库，然后啃他的<strong>api</strong>。</p>
+<h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><p>国际化还远不止页面静态文字的简单翻译，还包括本地化服务（时间、货币等等）。希望通过本文，大家对前端国际化有一定的了解。</p>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
