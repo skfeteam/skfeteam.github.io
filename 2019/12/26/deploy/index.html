@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>【你应该了解的】详尽&amp;全面的前端部署（从零起步，前端上线不用愁） - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="部署">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">陆程</a>
+                    <span title="最后编辑于&nbsp;2019-12-26">2019-12-26</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">【你应该了解的】详尽&全面的前端部署（从零起步，前端上线不用愁）</h2>
+            <div class="post-meta">
+                本文共计10782个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <p>遇到前端部署问题怎么办？nginx、端口、https域名怎么配置，跨域问题咋整，react/vue项目怎么部署，什么是反向代理，请您耐心往下看。本文通俗易懂，可操作，旨在抛砖引玉。要是帮到了您，还请顺便点个赞。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>前端部署，是让前端代码在服务器环境正常运行。而前端日常工作，主要还是业务代码开发，资源引用，前端路由配置等。至于部署，更多的是运维人员操作接触不多。但现实项目中，往往一部署到这些环境就出现各种各样的问题，如果我们有部署相关的理论、实践经验，面对问题就能更容易定位到问题，提高上线效率。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>当你兴致勃勃买了台服务器，然后规划着美好的未来，规划搭建平台。问题来了，前端项目如何部署(demo来自于Internet项目版权归各自所有)…</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41962ec1a2eac?w=686&h=324&f=png&s=58610" alt="images/1.上线预期.png"></p>
+<p>预期的几个目标：</p>
+<ul>
+<li><p>1.web站点(SEO)<br>基于nextjs前端web服务，port 18001(可修改)。通过nextjs官方example创建<br><a href="https://github.com/zeit/next.js/" target="_blank" rel="noopener">https://github.com/zeit/next.js/</a></p>
+</li>
+<li><p>2.api服务<br>基于koa的前端nodejs服务，port 18000(可修改)。通过koa脚手架 <a href="https://github.com/17koa/koa2-startkit" target="_blank" rel="noopener">https://github.com/17koa/koa2-startkit</a> 创建</p>
+</li>
+<li><p>3.静态web项目1-基于vue的前端单页面静态资源项目  /vue-app。通过vue-cli创建 <a href="https://cli.vuejs.org/zh/" target="_blank" rel="noopener">https://cli.vuejs.org/zh/</a></p>
+</li>
+<li><p>4.静态web项目2-基于react/typescript等前端静态资源项目  /react-app。通过create-react-app-antd创建 <a href="https://github.com/ant-design/create-react-app-antd" target="_blank" rel="noopener">https://github.com/ant-design/create-react-app-antd</a></p>
+</li>
+<li><p>5.公共静态资源图片、css、js等。  /static</p>
+</li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><blockquote>
+<p>按照从零起步的原则，按照以下目录来循序渐进</p>
+</blockquote>
+<ul>
+<li>1.服务器分类</li>
+<li>2.轻量强大的nginx</li>
+<li>3.前端服务管理工具-pm2</li>
+<li>4.解决跨域“问题”</li>
+<li>5.☆部署react/vue单页面静态项目</li>
+<li>6.实现https</li>
+<li>7.持续集成CI-自动化部署</li>
+</ul>
+<h2 id="1-服务器分类"><a href="#1-服务器分类" class="headerlink" title="1.服务器分类"></a>1.服务器分类</h2><h3 id="1-1-应用服务器"><a href="#1-1-应用服务器" class="headerlink" title="1.1 应用服务器"></a>1.1 应用服务器</h3><p>专注于动态资源、解析高级开发语言编写的代码。前端服务一般基于解析JavaScript语言的nodejs搭建</p>
+<ul>
+<li>JAVA：Tomcat、resin、jboss、weblogic 等</li>
+<li>PHP：Apache等</li>
+<li>.NET：IIS等</li>
+<li>Nodejs：express、 koa、eggjs等</li>
+</ul>
+<h3 id="1-2-网关服务器"><a href="#1-2-网关服务器" class="headerlink" title="1.2 网关服务器"></a>1.2 网关服务器</h3><p>专注于静态资源、代理转发、负载均衡等</p>
+<ul>
+<li>Nginx、Tengine等</li>
+</ul>
+<h2 id="2-轻量强大的Nginx"><a href="#2-轻量强大的Nginx" class="headerlink" title="2.轻量强大的Nginx"></a>2.轻量强大的Nginx</h2><p>Nginx特性很多，前端常用一些特性，其他特性各大互联网公司经过大量实践已证明。关于nginx配置，主要就是配置nginx.conf以及修改后reload使配置生效。具体nginx下载与教程可以参照官网等。Nginx主要是修改配置文件以及生效。</p>
+<h3 id="2-1-简介"><a href="#2-1-简介" class="headerlink" title="2.1 简介"></a>2.1 简介</h3><h4 id="2-1-1-前端常用特性"><a href="#2-1-1-前端常用特性" class="headerlink" title="2.1.1 前端常用特性"></a>2.1.1 前端常用特性</h4><ul>
+<li>域名绑定</li>
+<li>静态资源</li>
+<li>反向代理</li>
+<li>支持https</li>
+<li>跨平台</li>
+</ul>
+<h4 id="2-1-2-其他特性"><a href="#2-1-2-其他特性" class="headerlink" title="2.1.2 其他特性"></a>2.1.2 其他特性</h4><ul>
+<li>负载均衡、高并发</li>
+<li>…</li>
+</ul>
+<h4 id="2-1-5-nginx下载和目录说明"><a href="#2-1-5-nginx下载和目录说明" class="headerlink" title="2.1.5 nginx下载和目录说明"></a>2.1.5 nginx下载和目录说明</h4><p>nginx官方网站：<a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a></p>
+<p>nginx主要通过修改conf/nginx.conf配置文件，重启nginx程序生效实现服务器功能。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419773b073b80?w=833&h=628&f=png&s=100840" alt="images/2.轻量强大的nginx-静态资源-nginx文件目录"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 重启使配置文件生效</span><br><span class="line">&#x2F;&#x2F; windows</span><br><span class="line">.\nginx.exe -s reload</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; linux&#x2F;mac</span><br><span class="line">nginx -s reload</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ps windows下强制结束nginx.exe进程命令</span><br><span class="line">taskkill &#x2F;f &#x2F;t &#x2F;im nginx.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-实战配置"><a href="#2-2-实战配置" class="headerlink" title="2.2 实战配置"></a>2.2 实战配置</h3><h4 id="2-2-1-环境准备"><a href="#2-2-1-环境准备" class="headerlink" title="2.2.1 环境准备"></a>2.2.1 环境准备</h4><ul>
+<li>nginx.org下载最新的nginx压缩包直接解压，windows/linux/mac下载对应的版本</li>
+<li>创建文件夹，windows下为如C盘根目录创建 c:/server；linux/mac可以在某个目录创建如根目录创建 /server</li>
+</ul>
+<h4 id="2-2-2-静态资源"><a href="#2-2-2-静态资源" class="headerlink" title="2.2.2 静态资源"></a>2.2.2 静态资源</h4><p>首先，我们来实现js、png图片、css资源的静态资源配置。server文件夹下创建static文件夹，里面分别创建js、img、css文件夹并在对应文件夹放置对应格式的测试文件内容随意。最终访问路径和效果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;static&#x2F;js&#x2F;js.js</span><br><span class="line">&#x2F;static&#x2F;img&#x2F;img.png</span><br><span class="line">&#x2F;static&#x2F;css&#x2F;css.css</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41989b46b55ab?w=960&h=170&f=png&s=41773" alt="images/2.轻量强大的nginx-静态资源-资源访问效果.png"></p>
+<h4 id="2-2-3-nginx配置静态资源"><a href="#2-2-3-nginx配置静态资源" class="headerlink" title="2.2.3 nginx配置静态资源"></a>2.2.3 nginx配置静态资源</h4><p>找到nginx文件夹中的 conf/nginx.conf配置文件对应如下配置，配置完成后需要重启nginx，上面有如何重启，结束进程再次打开进程或者reload。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># nginx.conf文件找到server区域</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    # nginx监听端口号，不能被其他应用占用</span><br><span class="line">    listen 80;</span><br><span class="line"></span><br><span class="line">    # nginx绑定的域名，本文用localhost</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    # 公共静态资源</span><br><span class="line">    location &#x2F;static&#x2F; &#123;</span><br><span class="line">      #root C:&#x2F;server&#x2F;;</span><br><span class="line">      alias C:&#x2F;server&#x2F;static&#x2F;;</span><br><span class="line">      autoindex on;</span><br><span class="line">      # 是否启用目录索引</span><br><span class="line">      #autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-目录索引"><a href="#2-2-4-目录索引" class="headerlink" title="2.2.4 目录索引"></a>2.2.4 目录索引</h4><p>以上配置有个 autoindex on,如果配置了如果访问的是目录，则展示目录索引，如果关闭则展示403 Forbidden。一般为了服务器安全不被探测，都是关闭索引目录。</p>
+<p><em>开启索引效果</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f4199261fd7360?w=342&h=170&f=png&s=16431" alt="开启索引效果"></p>
+<p><em>关闭索引效果</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41998495bb375?w=960&h=184&f=png&s=46983" alt="关闭索引效果"></p>
+<h4 id="2-2-5-附：nginx静态站点"><a href="#2-2-5-附：nginx静态站点" class="headerlink" title="2.2.5 附：nginx静态站点"></a>2.2.5 附：nginx静态站点</h4><p>配置三个静态web站点备用。配置方法很简单，C:/server创建两个文件夹，立马分别有个index.html文件。nginx.conf增加以下配置后重启nginx生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       10001;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root C:&#x2F;server&#x2F;siteA;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       10002;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root C:&#x2F;server&#x2F;siteB;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       10003;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root C:&#x2F;server&#x2F;siteB;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">      add_header X-Frame-Options SAMEORIGIN;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，任务5静态资源任务达成。恭喜您已经具备使用nginx搭建静态web站点和静态文件服务的能力了，具体相关其他配置可以自行深入研究。</p>
+<h2 id="3-部署前端服务-pm2"><a href="#3-部署前端服务-pm2" class="headerlink" title="3 部署前端服务-pm2"></a>3 部署前端服务-pm2</h2><p>前端服务-即前端使用如基于nodejs平台下能够有独立运行访问的web服务等。如nextjs、express、koa、eggjs等前端应用服务器。</p>
+<h3 id="pm2是什么"><a href="#pm2是什么" class="headerlink" title="pm2是什么"></a>pm2是什么</h3><blockquote>
+<p>众所周知，我们一般启动前端服务，开启一个bash，然后执行如npm start服务器愉快的跑起来，但如果有多个服务，就必须要打开多个，一般在服务器环境你只有一个bash端口必须得后台运行，如何后台运行nodejs服务，以及方便的管理各个nodejs服务的暂停、重启、销毁，我们得需要一个能够管理他们的软件。pm2应运而生。</p>
+</blockquote>
+<p>pm2工具:把nodejs服务变为后台服务，统一管理（常用于服务器环境、控制台命令环境）</p>
+<blockquote>
+<p>详见pm2官方文档 <a href="https://www.npmjs.com/package/pm2" target="_blank" rel="noopener">https://www.npmjs.com/package/pm2</a>, <a href="https://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank" rel="noopener">https://pm2.keymetrics.io/docs/usage/application-declaration/</a></p>
+</blockquote>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 –g</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><ul>
+<li>pm2 start pm2.json   #根据pm2.json配置方式启动进程</li>
+<li>pm2 list， pm2 status #列出当前所有pm2管理列表</li>
+<li>pm2 stop 0  #停用指定id的服务</li>
+<li>pm2 delete 0  #删除指定id的服务</li>
+<li>pm2 restart 0 #重启指定id的服务</li>
+</ul>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>我们根据上述最开始官方项目启动nextjs、koa2的nodejs服务，(以前我们是执行npm run start，本地模拟可以直接先启动)，现在如果需要pm2改造</p>
+<p>先看运行效果：</p>
+<p>1.基于nextjs的nodejs服务：127.0.0.1:12111</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419a44852ce80?w=1136&h=457&f=png&s=51416" alt="部署前端服务-nextjs"></p>
+<p>2.基于koa2的nodejs服务：127.0.0.1:18000</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419aa8fdca27a?w=1163&h=331&f=png&s=109057" alt="部署前端服务-koa"></p>
+<p>3.pm2 list列出所有pm2托管的node服务</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419aef441eb19?w=926&h=139&f=png&s=65255" alt=".部署前端服务-pm2"></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>最终我们是直接通过目录下的start.bat/start.sh执行pm2命令。最终为了间接执行到npm start的命令,给予pm2进行托管</p>
+<blockquote>
+<p>windows下的pm2存在一些问题，需要通过间接方式执行npm命令</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1.koa&#x2F;nextjs项目根目录增加start.bat &#x2F; start.sh,内容为pm2的命令</span><br><span class="line">pm2 start ecosystem.config.js</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2.创建ecosystem.config.js配置文件，以下已沟通。详细其他参数可参照pm2官网查看具体配置. https:&#x2F;&#x2F;pm2.keymetrics.io&#x2F;docs&#x2F;usage&#x2F;application-declaration&#x2F; </span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    apps: [&#123;</span><br><span class="line">        name: &#39;MyKoa&#39;,</span><br><span class="line">        script: &#39;start.js&#39;,</span><br><span class="line">        args: &#39;one two&#39;,</span><br><span class="line">        instances: 1,</span><br><span class="line">        autorestart: true,</span><br><span class="line">        watch: false,</span><br><span class="line">        max_memory_restart: &#39;1G&#39;,</span><br><span class="line">        env: &#123;</span><br><span class="line">            NODE_ENV: &#39;development&#39;</span><br><span class="line">        &#125;,</span><br><span class="line">        env_production: &#123;</span><br><span class="line">            NODE_ENV: &#39;production&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3.创建start.js</span><br><span class="line">const cmd &#x3D; require(&#39;node-cmd&#39;);</span><br><span class="line">cmd.run(&#39;npm run start&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 4.package.json配置，需要项目安装node-cmd的包，具体npm run start就是项目中如何启动nodejs服务根据具体项目来</span><br><span class="line">&#123;</span><br><span class="line">  &quot;start&quot;: &quot;node bin&#x2F;development.js&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，您已经本地运行了两个前端node服务。任务1、2完成50%.</p>
+<h2 id="4-解决跨域”问题”"><a href="#4-解决跨域”问题”" class="headerlink" title="4.解决跨域”问题”"></a>4.解决跨域”问题”</h2><h3 id="4-1跨域——“正常”的安全策略"><a href="#4-1跨域——“正常”的安全策略" class="headerlink" title="4.1跨域——“正常”的安全策略"></a>4.1跨域——“正常”的安全策略</h3><blockquote>
+<p>我们两个node都启了，你一定会立马就想让nextjs的fetch请求来请求koa的api服务，结果跨域了。。</p>
+</blockquote>
+<h4 id="场景一、XMLHttpRequest、fetch等同源限制"><a href="#场景一、XMLHttpRequest、fetch等同源限制" class="headerlink" title="场景一、XMLHttpRequest、fetch等同源限制"></a>场景一、XMLHttpRequest、fetch等同源限制</h4><p>浏览器出于安全当访问不同端口、域名默认情况下是不允许的，也是出于安全。如果谁都能互相随便调用岂不是没有了安全可言。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419b643096029?w=1020&h=376&f=png&s=170835" alt="4.解决跨域问题-fetch同源限制"></p>
+<h4 id="场景二、iframe跨域引用问题"><a href="#场景二、iframe跨域引用问题" class="headerlink" title="场景二、iframe跨域引用问题"></a>场景二、iframe跨域引用问题</h4><p>一般出于安全，页面的HTTP请求的Response头部设置了X-Frame-Options:sameorigin，防止页面被其他站点内嵌。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419bc3c62c17b?w=1154&h=313&f=png&s=79824" alt="解决跨域问题-iframe跨域问题"></p>
+<h3 id="4-2nginx解决方案-反向代理"><a href="#4-2nginx解决方案-反向代理" class="headerlink" title="4.2nginx解决方案-反向代理"></a>4.2nginx解决方案-反向代理</h3><h4 id="4-2-1-什么是反向代理"><a href="#4-2-1-什么是反向代理" class="headerlink" title="4.2.1 什么是反向代理"></a>4.2.1 什么是反向代理</h4><blockquote>
+<p>一句话解释：客户端请求服务器，服务器接收转发给其他服务器获得内容，再传给客户端。</p>
+</blockquote>
+<p>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
+<p>正向代理：意思是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
+<h4 id="4-2-2-先看nginx的预期效果"><a href="#4-2-2-先看nginx的预期效果" class="headerlink" title="4.2.2 先看nginx的预期效果"></a>4.2.2 先看nginx的预期效果</h4><p>当localhost访问 /api/test/list成功转发到koa服务(127.0.0.1:12111)返回数据</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419c62aab7e65?w=867&h=365&f=png&s=83191" alt="解决跨域问题-nginx反向代理"></p>
+<h4 id="4-2-3-nginx配置反向代理"><a href="#4-2-3-nginx配置反向代理" class="headerlink" title="4.2.3 nginx配置反向代理"></a>4.2.3 nginx配置反向代理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 1.首页为nextjs的web server,便于SEO优化。访问所有优先转发给nextjs服务</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">    proxy_pass http:&#x2F;&#x2F;127.0.0.1:12111&#x2F;;</span><br><span class="line">    proxy_redirect  off;</span><br><span class="line">    proxy_set_header Host $proxy_host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header Via &quot;nginx&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 2.转发&#x2F;api请求给前端koa服务器</span><br><span class="line">location &#x2F;api &#123;</span><br><span class="line">    proxy_pass http:&#x2F;&#x2F;127.0.0.1:18000&#x2F;api;</span><br><span class="line">    proxy_redirect  off;</span><br><span class="line">    proxy_set_header Host $proxy_host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header Via &quot;nginx&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-iframe跨域解决"><a href="#4-3-iframe跨域解决" class="headerlink" title="4.3 iframe跨域解决"></a>4.3 iframe跨域解决</h3><p>iframe跨域一般还是通过服务器设置response header头。分为旧版本浏览器和新版本浏览器。旧版本：X-Frame-Options，新版本：Content-Security-Policy。可参考：<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy</a></p>
+<p>nginx下具体设置如下,可以指定对应可跨域iframe访问的域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 被内嵌iframe web设置</span><br><span class="line">server &#123;    </span><br><span class="line">    listen       10004;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root C:&#x2F;server&#x2F;siteB;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">      # 旧版本</span><br><span class="line">      add_header X-Frame-Options &quot;ALLOW-FROM http:&#x2F;&#x2F;localhost&quot;;</span><br><span class="line">      # 新版本使用csp</span><br><span class="line">      # add_header Content-Security-Policy &quot;frame-ancestors &#39;self’ http:&#x2F;&#x2F;localhost&quot;;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419ce292d803d?w=731&h=179&f=png&s=39922" alt="4.解决跨域问题-iframe跨域问题-设置头"></p>
+<h3 id="4-4-http报头跨域"><a href="#4-4-http报头跨域" class="headerlink" title="4.4 http报头跨域"></a>4.4 http报头跨域</h3><p>一般为开发阶段的mock server，或者设置允许跨域的域名.这样，我们可以直接访问mock数据</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419d48ac393a1?w=667&h=206&f=png&s=98012" alt="解决跨域问题-iframe跨域问题-http报头跨域设置"></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a45bd68373b?w=860&h=456&f=png&s=160091" alt="解决跨域问题-iframe跨域问题-http报头跨域效果"></p>
+<h2 id="☆5-部署react-vue单页面静态项目"><a href="#☆5-部署react-vue单页面静态项目" class="headerlink" title="☆5.部署react/vue单页面静态项目"></a>☆5.部署react/vue单页面静态项目</h2><blockquote>
+<p>本章节作为react/vue开发者必备部署知识，因为你的代码始终是要发布的，出了啥问题你就能很快定位(甩锅)问题所在。</p>
+</blockquote>
+<h3 id="5-1-单页面应用核心问题"><a href="#5-1-单页面应用核心问题" class="headerlink" title="5.1 单页面应用核心问题"></a>5.1 单页面应用核心问题</h3><p>部署单页面应用项目我们核心思考的问题：服务器端路由与静态单页面应用路由的转换过程</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419e102f7f663?w=998&h=324&f=png&s=12143" alt="部署react、vue单页面静态应用-服务器端路由与静态单页面应用路由的转换过程思考"></p>
+<h3 id="5-2-nginx配置单页面应用"><a href="#5-2-nginx配置单页面应用" class="headerlink" title="5.2 nginx配置单页面应用"></a>5.2 nginx配置单页面应用</h3><p>我们进行分析：当访问url时，先访问nginx服务器，nginx路由判定后给前端路由托管。我们得出以下的配置：访问静态资源子路径下的所有路由均转发给静态资源的index.html文件。实现后端路由转换为前端路由。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 1.create-react-app静态项目</span><br><span class="line">location &#x2F;react-app &#123;</span><br><span class="line">  # 路径</span><br><span class="line">  alias C:&#x2F;server&#x2F;create-react-app-antd&#x2F;build;</span><br><span class="line">  # 默认首页</span><br><span class="line">  index index.html;</span><br><span class="line">  # 访问不到资源后的处理</span><br><span class="line">  try_files $uri $uri&#x2F; &#x2F;react-app&#x2F;index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 2.vue静态项目</span><br><span class="line">location &#x2F;vue-app &#123;</span><br><span class="line">  alias C:&#x2F;server&#x2F;vueapp&#x2F;build;</span><br><span class="line">  index index.html;</span><br><span class="line">  try_files $uri $uri&#x2F; &#x2F;vue-app&#x2F;index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题一：原始项目直接配置完成无法访问，资源报错"><a href="#问题一：原始项目直接配置完成无法访问，资源报错" class="headerlink" title="问题一：原始项目直接配置完成无法访问，资源报错"></a>问题一：原始项目直接配置完成无法访问，资源报错</h4><h5 id="vue-cli项目配置"><a href="#vue-cli项目配置" class="headerlink" title="vue-cli项目配置"></a>vue-cli项目配置</h5><p>首先，如果直接从vue官网的命令安装依赖，执行npm run build，配置完是会报错的。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419e7c3f85cc1?w=1054&h=384&f=png&s=32801" alt="部署react、vue单页面静态应用-vue或react原始项目直接build会报错"></p>
+<p>问题原因：css/js资源引用路径没有引用到，解决方法1改成相对路径访问</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419ef95ccd3da?w=688&h=490&f=png&s=27735" alt="部署react、vue单页面静态应用-单页面静态的前端资源需要变为相对路径"></p>
+<p>修改后重新编译，成功访问</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419f4dfb56f70?w=1199&h=718&f=png&s=72594" alt="部署react、vue单页面静态应用-vue静态页面完成部署"></p>
+<h5 id="react项目配置"><a href="#react项目配置" class="headerlink" title="react项目配置"></a>react项目配置</h5><p>默认create-react-app-antd项目npm run build后配置完会出现资源无法访问的问题。原因，项目都是绝对路径访问资源。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f419fe81d6b12c?w=1128&h=599&f=png&s=49302" alt="部署react、vue单页面静态应用-react默认项目路径报错"></p>
+<p>react项目里面由于脚手架配置读取package.json的homepage项为根路径</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a033724578b?w=811&h=1048&f=png&s=100282" alt="部署react、vue单页面静态应用-react项目修改资源路径"></p>
+<p>重新打包编译后正常访问。这里稍作修改，项目内容增加了路由跳转，这样好测试静态资源路由功能。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a07539c4bbb?w=1304&h=618&f=png&s=62623" alt="部署react、vue单页面静态应用-react项目正确配置完成后预览效果"></p>
+<h4 id="问题二：我上线出现了点击上面react项目首页-http-localhost-react-app-点击链接跳转-http-localhost-react-app-test能打开，但我刷新页面报nginx404了。-很多小伙伴都出现了发布后出现这个情况明明默认都能点，刷新页面后就打不开了报404"><a href="#问题二：我上线出现了点击上面react项目首页-http-localhost-react-app-点击链接跳转-http-localhost-react-app-test能打开，但我刷新页面报nginx404了。-很多小伙伴都出现了发布后出现这个情况明明默认都能点，刷新页面后就打不开了报404" class="headerlink" title="问题二：我上线出现了点击上面react项目首页 http://localhost/react-app/点击链接跳转 http://localhost/react-app/test能打开，但我刷新页面报nginx404了。(很多小伙伴都出现了发布后出现这个情况明明默认都能点，刷新页面后就打不开了报404)"></a>问题二：我上线出现了点击上面react项目首页 <a href="http://localhost/react-app/点击链接跳转" target="_blank" rel="noopener">http://localhost/react-app/点击链接跳转</a> <a href="http://localhost/react-app/test能打开，但我刷新页面报nginx404了。(很多小伙伴都出现了发布后出现这个情况明明默认都能点，刷新页面后就打不开了报404)" target="_blank" rel="noopener">http://localhost/react-app/test能打开，但我刷新页面报nginx404了。(很多小伙伴都出现了发布后出现这个情况明明默认都能点，刷新页面后就打不开了报404)</a></h4><p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a0c9678426e?w=1036&h=485&f=png&s=32605" alt="部署react、vue单页面静态应用-react项目正常路由跳转到test子路由"></p>
+<p>子路由刷新页面后404</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a10b9783900?w=944&h=344&f=png&s=21212" alt="部署react、vue单页面静态应用-react项目子路由刷新后报404"></p>
+<h5 id="why刷新报错"><a href="#why刷新报错" class="headerlink" title="why刷新报错?"></a>why刷新报错?</h5><p>冷静思考，根源还是来自于前后端路由的转换问题，还记得上面配置行(3行)中重要的一句话：try_files 尝试文件，也就是说服务器找不到文件你得告诉怎么处理跳转到哪儿。也就定位到问题：try_files $uri $uri/ /react-app/index.html;这句异常处理如果不加就会导致刷新访问不到文件的问题。<br>回味一下配置：访问不到的时候转发给下面的index.html页面，index.html无缝对接前端的路由。问题解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;react-app &#123;</span><br><span class="line">  alias C:&#x2F;server&#x2F;create-react-app-antd&#x2F;build;</span><br><span class="line">  index index.html;</span><br><span class="line">  # 下面这句话就起作用了很关键</span><br><span class="line">  try_files $uri $uri&#x2F; &#x2F;react-app&#x2F;index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>至此，您已具备单页面应用项目的能力，判定资源访问路径，而且还能够排查出部署刷新页面报404这样的经典问题。任务3,4react/vue的静态子项目成功部署。</p>
+<h2 id="6-https访问"><a href="#6-https访问" class="headerlink" title="6 https访问"></a>6 https访问</h2><p>至此，上述的几个应用系统已经完全贯通运作。但http不是不安全吗，我需要用https让网站能够安全访问。</p>
+<h3 id="6-1-https基于ssl证书访问关键要素"><a href="#6-1-https基于ssl证书访问关键要素" class="headerlink" title="6.1 https基于ssl证书访问关键要素"></a>6.1 https基于ssl证书访问关键要素</h3><ul>
+<li>申请证书、秘钥(openssl工具) </li>
+<li>配置nginx</li>
+</ul>
+<p>其实本地环境是可以通过命令行工具生成秘钥和证书，用来测试https</p>
+<blockquote>
+<p>nginx 本地https秘钥可参考文档：<a href="https://www.cnblogs.com/isylar/p/10002117.html" target="_blank" rel="noopener">https://www.cnblogs.com/isylar/p/10002117.html</a></p>
+</blockquote>
+<p>先看效果：https访问后端口号变为了443</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a1e02d8b0b7?w=1153&h=484&f=png&s=55195" alt="https访问-成功配置效果"></p>
+<p>nginx配置如下：最关键的就是pem证书和key的生成。按照上面文档本地就可以生成，网上也有很多关于https证书秘钥生成教程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name localhost;</span><br><span class="line">        index index.html index.htm index.php;</span><br><span class="line">        root  C:&#x2F;lc&#x2F;server;</span><br><span class="line">        # pem证书路径</span><br><span class="line">        ssl_certificate  C:&#x2F;lc&#x2F;work&#x2F;proj&#x2F;https&#x2F;server&#x2F;server.pem;</span><br><span class="line">        # pem证书路径</span><br><span class="line">        ssl_certificate_key C:&#x2F;lc&#x2F;work&#x2F;proj&#x2F;https&#x2F;server&#x2F;server.key;</span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">          …</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题：本地刚配置https访问后浏览器提示不安全的连接"><a href="#问题：本地刚配置https访问后浏览器提示不安全的连接" class="headerlink" title="问题：本地刚配置https访问后浏览器提示不安全的连接"></a>问题：本地刚配置https访问后浏览器提示不安全的连接</h4><p><img src="https://user-gold-cdn.xitu.io/2019/12/26/16f41a18e4c92458?w=823&h=794&f=png&s=52017" alt="https访问-本地刚配置好提示不安全"></p>
+<p>解答：由于浏览器https是需要经过合法CA办法的证书，我们自己配置的并非经过证书颁发机构。点击继续前往还是能够本地访问到。</p>
+<h4 id="如何强制http请求转为https请求"><a href="#如何强制http请求转为https请求" class="headerlink" title="如何强制http请求转为https请求"></a>如何强制http请求转为https请求</h4><p>nginx配置为：80端口访问后rewrite所有请求为https</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen 80;</span><br><span class="line">      server_name  localhost;</span><br><span class="line">      # 强制使用https</span><br><span class="line">      rewrite ^(.*)$ https:&#x2F;&#x2F;$host$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="7-持续集成CI-自动化部署"><a href="#7-持续集成CI-自动化部署" class="headerlink" title="7.持续集成CI-自动化部署"></a>7.持续集成CI-自动化部署</h2><h3 id="7-1核心思想"><a href="#7-1核心思想" class="headerlink" title="7.1核心思想"></a>7.1核心思想</h3><ul>
+<li>具有执行服务器端脚本能力</li>
+<li>通过web等UI界面方便操作</li>
+<li>支持通过如git web hook等触发式构建</li>
+</ul>
+<h3 id="7-2常用软件"><a href="#7-2常用软件" class="headerlink" title="7.2常用软件"></a>7.2常用软件</h3><ul>
+<li>Jenkins <a href="https://jenkins.io/zh/" target="_blank" rel="noopener">https://jenkins.io/zh/</a></li>
+</ul>
+<h3 id="7-3本地写个自动更新代码自动打包的脚本"><a href="#7-3本地写个自动更新代码自动打包的脚本" class="headerlink" title="7.3本地写个自动更新代码自动打包的脚本"></a>7.3本地写个自动更新代码自动打包的脚本</h3><p>我们在刚刚 C:/server/create-react-app-antd下新建build.sh和build.bat，用来执行后自动拉取代码以及自动执行编译打包</p>
+<p>build.bat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo start build...</span><br><span class="line">echo running step 1.git pull</span><br><span class="line">git pull</span><br><span class="line">echo running step 2.npm run build</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>build.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env bash</span><br><span class="line">echo start build...</span><br><span class="line">echo running step 1.git pull</span><br><span class="line">git pull</span><br><span class="line">echo running step 2.npm run build</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h2 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h2><p>能看到这里，真心感谢您的耐心，是不是有种醍醐灌顶，原来前端部署一篇就够了。有了这些，我们在以后的前端上线部署不再是盲区，又能够快速定位问题。<br>结尾还是那句话：要是帮到了您，还请顺便点个赞，谢谢(90度鞠躬)。</p>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
