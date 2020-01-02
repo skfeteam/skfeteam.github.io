@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>klh - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">skFe</a>
+                    <span title="最后编辑于&nbsp;2020-01-02">2020-01-02</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">klh</h2>
+            <div class="post-meta">
+                本文共计2811个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <h1 id=""><a href="#" class="headerlink" title=""></a></h1><hr>
+<p>title: 【你应该了解的】函数柯里化的个人理解<br>date: 2019-12-26 18:00<br>author: 蔡旭光<br>tags: </p>
+<ul>
+<li>技术<br>description: 柯里化</li>
+</ul>
+<hr>
+<h3 id="一道面试题"><a href="#一道面试题" class="headerlink" title="一道面试题"></a>一道面试题</h3><p>已知一个add方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b, c</span>) </span>&#123;  </span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>实现一个sum方法，满足如下条件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// 6</span></span><br><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)   <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>该题其实就运用了函数柯里化的思想，我们可以将add方法通过函数柯里化转化为sum方法。</p>
+<p>先来看看什么是函数柯里化。</p>
+<h3 id="什么是函数柯里化"><a href="#什么是函数柯里化" class="headerlink" title="什么是函数柯里化"></a>什么是函数柯里化</h3><p>维基百科中这样定义柯里化：</p>
+<blockquote>
+<p>在<a href="https://zh.wikipedia.org/wiki/计算机科学" target="_blank" rel="noopener">计算机科学</a>中，<strong>柯里化</strong>（英语：Currying），又译为<strong>卡瑞化</strong>或<strong>加里化</strong>，是把接受多个<a href="https://zh.wikipedia.org/wiki/參數_(程式設計)" target="_blank" rel="noopener">参数</a>的<a href="https://zh.wikipedia.org/wiki/函数" target="_blank" rel="noopener">函数</a>变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。</p>
+</blockquote>
+<p>用大白话来说就是：只传递给函数一部分参数来调用它，让它返回一个新函数去处理剩下的参数。</p>
+<h5 id="举个例子理解柯里化："><a href="#举个例子理解柯里化：" class="headerlink" title="举个例子理解柯里化："></a>举个例子理解柯里化：</h5><p>假设你有一间商店，促销季，你想给普通顾客所有商品九折优惠。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setDiscount</span>(<span class="params">price, discount</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> price * discount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当一个普通顾客买了一件价格为100元的商品，你计算价格可以：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> price = setDiscount(<span class="number">100</span>, <span class="number">0.9</span>);</span><br></pre></td></tr></table></figure>
+
+<p>你会发现，每次计算一个商品价格，都需要输入价格和折扣，很麻烦。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> price1 = setDiscount(<span class="number">500</span>, <span class="number">0.9</span>);</span><br><span class="line"><span class="keyword">const</span> price2 = setDiscount(<span class="number">1000</span>, <span class="number">0.9</span>);</span><br><span class="line"><span class="keyword">const</span> price3 = setDiscount(<span class="number">2000</span>, <span class="number">0.9</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们可以将函数setDiscount柯里化，避免每次都输入折扣。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">currySetDiscount</span>(<span class="params">discount</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;    </span><br><span class="line">        <span class="keyword">return</span> discount * price;  </span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> setNinetyPercent = currySetDiscount(<span class="number">0.9</span>);</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以这样计算普通顾客购买商品时的价格：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> price = setNinetyPercent(<span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+
+<p>同样的，针对VIP顾客，所有商品打八折，可以这样计算：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> setEightyPercent = currySetDiscount(<span class="number">0.8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> price = setEightyPercent(<span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数柯里化的这种作用，可以理解为<strong>参数复用，延迟执行，减少了代码冗余，增加了代码可读性</strong>。</p>
+<h3 id="函数柯里化的简单实现"><a href="#函数柯里化的简单实现" class="headerlink" title="函数柯里化的简单实现"></a>函数柯里化的简单实现</h3><p>回到开始的那道题，我们来写一个curry函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn, args</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">let</span> len = fn.length;  <span class="comment">// 待柯里化的函数的参数长度</span></span><br><span class="line">    <span class="keyword">let</span> tempArgs = args || [];  </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">        tempArgs = tempArgs.concat([...arguments])    </span><br><span class="line">        <span class="keyword">if</span> (tempArgs.length &lt; len) &#123;      </span><br><span class="line">            <span class="keyword">return</span> curry.call(<span class="keyword">this</span>, fn, tempArgs);    </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;      </span><br><span class="line">            <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, tempArgs);    </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理：<strong>用闭包保存参数，当参数数量和原函数参数数量一致时，执行函数</strong>。</p>
+<p>可以这样来柯里化add，生成sum方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = curry(add);</span><br><span class="line"></span><br><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// 6</span></span><br><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)   <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="函数柯里化的应用"><a href="#函数柯里化的应用" class="headerlink" title="函数柯里化的应用"></a>函数柯里化的应用</h3><p><strong>延迟计算</strong></p>
+<p>我们常用的bind函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  name: <span class="string">'jack'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> showName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> showJackName = showName.bind(obj);</span><br><span class="line"></span><br><span class="line">showJackName(); <span class="comment">// jack</span></span><br></pre></td></tr></table></figure>
+
+<p>这里<strong>bind</strong>用来改变函数执行时的上下文，但是函数本身并不执行，所以本质上是延迟计算。</p>
+<p>我们看下bind的模拟实现，本质上就是一种柯里化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myBind</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">  <span class="comment">// 第一个对象参数</span></span><br><span class="line">  <span class="keyword">var</span> context = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 其余参数</span></span><br><span class="line">  <span class="keyword">var</span> bindArgs = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 临时函数</span></span><br><span class="line">  <span class="keyword">var</span> fTemp = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 合并绑定参数以及调用时参数</span></span><br><span class="line">    <span class="keyword">var</span> args = bindArgs.concat(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>));</span><br><span class="line">    <span class="comment">// 原函数执行（this指向给定对象）</span></span><br><span class="line">    self.apply(context, args);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 临时函数prototype指向原函数prototype</span></span><br><span class="line">  fTemp.prototype = self.prototype;</span><br><span class="line">  <span class="comment">// 新函数prototype设为临时函数的实例对象（当原函数使用New创建实例）</span></span><br><span class="line">  fn.prototype = <span class="keyword">new</span> fTemp();</span><br><span class="line">  <span class="keyword">return</span> fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>函数柯里化是函数式编程(一种编程范式)中的一个最基本的运算，它生于函数式编程，也主要服务于函数式编程（函数的组合前提是需要单参数的函数）。我们日常开发中其实无需特意区分是否使用函数柯里化，闭包，高阶函数等都一定程度上与函数柯里化有异曲同工之妙。</p>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
