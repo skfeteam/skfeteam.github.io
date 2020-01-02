@@ -26,11 +26,11 @@
 <link rel="shortcut icon" href="/images/favicon.ico">
 
 
-<title>klh - skFe</title>
+<title>【你应该了解的】函数柯里化 - skFe</title>
 
 <meta name="keywords" content="">
 
-<meta name="description " content="">
+<meta name="description " content="柯里化">
 
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -122,25 +122,19 @@
                 </a>
                 <p><span class="label">站点所有</span>
                     <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
-                       target="_blank">skFe</a>
-                    <span title="最后编辑于&nbsp;2020-01-02">2020-01-02</span>
+                       target="_blank">蔡旭光</a>
+                    <span title="最后编辑于&nbsp;2019-01-02">2019-01-02</span>
                 </p>
                 <p>skFe</p>
             </div>
-            <h2 class="post-title">klh</h2>
+            <h2 class="post-title">【你应该了解的】函数柯里化</h2>
             <div class="post-meta">
-                本文共计2811个字 |
+                本文共计2722个字 |
                 您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
         <div class="post-content markdown-body">
-            <h1 id=""><a href="#" class="headerlink" title=""></a></h1><hr>
-<p>title: 【你应该了解的】函数柯里化的个人理解<br>date: 2019-12-26 18:00<br>author: 蔡旭光<br>tags: </p>
-<ul>
-<li>技术<br>description: 柯里化</li>
-</ul>
-<hr>
-<h3 id="一道面试题"><a href="#一道面试题" class="headerlink" title="一道面试题"></a>一道面试题</h3><p>已知一个add方法。</p>
+            <h3 id="一道面试题"><a href="#一道面试题" class="headerlink" title="一道面试题"></a>一道面试题</h3><p>已知一个add方法。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b, c</span>) </span>&#123;  </span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
 
 <p>实现一个sum方法，满足如下条件：</p>
@@ -170,7 +164,6 @@
 
 <p>同样的，针对VIP顾客，所有商品打八折，可以这样计算：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> setEightyPercent = currySetDiscount(<span class="number">0.8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> price = setEightyPercent(<span class="number">500</span>);</span><br></pre></td></tr></table></figure>
-
 
 
 <p>函数柯里化的这种作用，可以理解为<strong>参数复用，延迟执行，减少了代码冗余，增加了代码可读性</strong>。</p>
@@ -205,6 +198,8 @@
         </div>
         
         <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
             
         </div>
         
