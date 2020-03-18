@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>【你应该掌握的】promise基础知识&amp;如何实现一个简单的promise - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="ts typescript">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">高扬</a>
+                    <span title="最后编辑于&nbsp;2020-03-18">2020-03-18</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">【你应该掌握的】Promise基础知识&如何实现一个简单的Promise</h2>
+            <div class="post-meta">
+                本文共计4698个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><a href="https://ts.xcatliu.com/" target="_blank" rel="noopener">TypeScript</a>是一种由微软开发的开源、跨平台的编程语言。它是JavaScript的超集，最终会被编译为JavaScript代码。</p>
+<p>TypeScript可以解决JavaScript弱类型和没有命名空间，难以模块化的问题，同时也增强了代码的可读性，在团队协作和大型项目中体现出更大的优势。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><h4 id="1-变量类型"><a href="#1-变量类型" class="headerlink" title="1.变量类型"></a>1.变量类型</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/baseVar.tsx</font></p>
+<ul>
+<li>TypeScript提供与JavaScript几乎相同的数据类型（<strong>布尔值boolean，字符串string，数字number，数组[]，元组</strong>），此外还提供了<strong>枚举enum</strong>类型。</li>
+<li>当不确定变量的数据类型或者数据类型会在代码运行过程中变化时，使用<strong>any</strong>来标记这些变量，使它们通过编译阶段的检查。</li>
+<li><strong>object</strong>表示原始类型以外的类型，即number,string,boolean,symbol,null,undefined以外的类型。</li>
+<li><strong>void</strong>用于表示没有任何类型，通常用于方法没有返回值时。void类型的变量只能赋值undefined或者null。</li>
+<li><strong>null</strong>和<strong>undefined</strong>各自的类型分别为null和undefined，并没有太大用处。</li>
+<li><strong>never</strong>表示永不存在的类型或方法无法达到终点，当代码中抛出异常或者while(true)时可能会用到。</li>
+<li><strong>symbol</strong>（自ECMAScript 2015起的新的原生类型），不可改变且唯一，通过Symbol函数构造。TypeScript中内置了一些symbols表示语言内部行为。</li>
+<li><strong>类型断言： as / &lt;&gt; / ！</strong><br>当TypeScript无法推断出对象类型但开发者可以确定时，可以通过类型断言来显式表达变量类型。</li>
+</ul>
+<p>在实际使用过程中，原始类型和any以及类型断言较为常用，object，void，null，undefined，never，symbol不经常使用。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec5bf9fbc0865?w=908&h=1035&f=png&s=106102" alt="常用的变量类型及声明"></p>
+<h4 id="2-接口"><a href="#2-接口" class="headerlink" title="2.接口"></a>2.接口</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/interface.tsx</font>  </p>
+<p>相较于基础类型而言，接口用于更具体地声明更加复杂的对象结构，关键字为<strong>interface</strong>。</p>
+<h5 id="声明方法"><a href="#声明方法" class="headerlink" title="声明方法"></a>声明方法</h5><p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec5f1adf949ff?w=757&h=239&f=png&s=21597" alt="声明方法代码示例1"><br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec5f464a1bb39?w=948&h=235&f=png&s=21333" alt="声明方法代码示例2"><br>方法体内的入参<strong>名称不要求</strong>与接口声明中<strong>完全一致</strong>。</p>
+<h5 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h5><p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec6128d6b581f?w=1113&h=496&f=png&s=48678" alt="声明变量代码示例"><br>变量声明中：</p>
+<ul>
+<li><strong>readonly</strong>关键字表示属性只读，不可修改。</li>
+<li>？表示可选属性，即可以不传该字段，可选参数在必传参数后面。</li>
+<li><strong>[propName: string]:any</strong>可以匹配到除前面已声明属性外的所有字符串名称的属性，如：sex: boolean, address: any, email: string等，可用于不确定入参中是否还包含其他属性时。</li>
+</ul>
+<p>方法的属性<strong>排序不要求</strong>与接口声明<strong>完全一致</strong>。</p>
+<h5 id="设置默认值"><a href="#设置默认值" class="headerlink" title="设置默认值"></a>设置默认值</h5><p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec635764a5ce0?w=857&h=281&f=png&s=22376" alt="默认值代码示例"><br>默认值属于可选参数的一种，但默认值不要求在必选参数之后。<br>当默认值在可选参数前时，需要传入undefined来获取默认值。</p>
+<h5 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h5><p>当方法中传参数量不一定或需要批量操作入参时，可以通过剩余参数来操作多个参数。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec63a550c2c4d?w=1003&h=320&f=png&s=34826" alt="剩余参数代码示例"></p>
+<h4 id="3-简单的高级类型"><a href="#3-简单的高级类型" class="headerlink" title="3.简单的高级类型"></a>3.简单的高级类型</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/types.tsx</font></p>
+<h5 id="交叉类型（-amp-）"><a href="#交叉类型（-amp-）" class="headerlink" title="交叉类型（&amp;）"></a>交叉类型（&amp;）</h5><p>交叉类型是将多个类型合并为一个类型，包含<strong>所有</strong>所需类型的所有属性。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec71bd51f816f?w=1110&h=907&f=png&s=75621" alt="交叉类型代码示例"></p>
+<h5 id="联合类型（-）"><a href="#联合类型（-）" class="headerlink" title="联合类型（|）"></a>联合类型（|）</h5><p>联合类型表示一个值可以是几个类型之一。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec72af33ee0e1?w=843&h=172&f=png&s=11655" alt="联合类型代码示例1"><br>如果一个值是联合类型，我们<strong>只能访问所有类型的共有成员</strong>。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec7350c851822?w=1281&h=598&f=png&s=57316" alt="联合类型代码示例2"></p>
+<h5 id="字符串-数字字面量类型"><a href="#字符串-数字字面量类型" class="headerlink" title="字符串/数字字面量类型"></a>字符串/数字字面量类型</h5><p>字符串字面量类型允许指定字符串类型的固定值。<br>数字字面量类型允许指定数字类型的固定值。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec74bc071e3f3?w=882&h=288&f=png&s=18274" alt="字面量类型代码示例"></p>
+<h4 id="4-迭代器"><a href="#4-迭代器" class="headerlink" title="4.迭代器"></a>4.迭代器</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/for.tsx</font><br>因为一些内置的类型Map，Array等实现了各自的Symbol.iterator，因此他们都是可迭代的。<br><font color=grey>（Symbol.iterator方法，被for-of语句调用。返回对象的默认迭代器）</font><br>以下语句可用于遍历可迭代对象。</p>
+<h5 id="for…of…"><a href="#for…of…" class="headerlink" title="for…of…"></a>for…of…</h5><p>(当生成目标为ES5或ES3，迭代器只允许在Array类型上使用。 在非数组值上使用 for..of语句会得到一个错误，就算这些非数组值已经实现了Symbol.iterator属性。)<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec7eab08cd175?w=837&h=555&f=png&s=41132" alt="for-of代码示例"></p>
+<h5 id="for…in…"><a href="#for…in…" class="headerlink" title="for…in…"></a>for…in…</h5><p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ec7f62e80c76a?w=775&h=526&f=png&s=37588" alt="for-in代码示例"></p>
+<h3 id="高阶用法"><a href="#高阶用法" class="headerlink" title="高阶用法"></a>高阶用法</h3><h4 id="1-泛型"><a href="#1-泛型" class="headerlink" title="1.泛型"></a>1.泛型</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a>  src/components/identity.tsx</font><br>泛型，<strong>指不预先确定的数据类型，在使用时才去确定</strong>。这里的使用时，不是指代码运行时。</p>
+<p>泛型的本质是将<strong>类型参数化</strong>，这种参数化的类型可以使用在类、接口及方法中成为泛型类、泛型接口、泛型方法。</p>
+<p>泛型是用于创建可复用代码组件的重要工具，使得代码片段可以被多种数据类型使用。</p>
+<p>考虑当一个方法有多种可能类型的入参，或者一个变量有多种可能类型的赋值时，通过联合类型列出所有可能的类型有时候是不现实或者繁杂的。当然，我们也可以将其定义为any类型来通过编译阶段的检查，但带来的问题是类型准确性的丢失，调试时也无法看到完整的参数信息。正是因此，TypeScript并不推荐使用any，因为使用any与不引入TypeScript是没有太大区别的。</p>
+<p>泛型可用于解决这类问题。 </p>
+<p>书写泛型接口或方法或类时，我们通过一个<strong>类型变量</strong>来捕获参数的类型，显示在<strong>尖括号&lt;&gt;</strong>中，<strong>命名随意，通常以大写字母代表</strong>。</p>
+<p>在实际调用该方法时，给类型变量赋予实际的类型，如string,array,number,boolean等；如不赋值具体类型，则TypeScript通过类型推断来检查代码。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecc30210825d2?w=923&h=679&f=png&s=51305" alt="泛型代码示例"><br>在示例代码中，func1,func2,func3返回与入参类型一致的出参。&lt; T &gt; &lt; U &gt;捕获入参的类型，并用于规范方法的出参。</p>
+<h4 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h4><p>有时，我们对方法的入参虽然不限制类型，但仍然期望他具备某个属性或者满足某些限制，此时我们可以使用extends关键字继承接口来给泛型增加约束。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecc45d7a5d3bb?w=948&h=523&f=png&s=38240" alt="泛型约束代码示例"><br>示例中func4与func5的区别在于，func5中T extends Leng。当给T增加了约束必须具备length属性时，arg就被限制了类型不可以是number，并且arg.length也不存在undefined的情况。</p>
+<h4 id="2-复杂的高级类型"><a href="#2-复杂的高级类型" class="headerlink" title="2.复杂的高级类型"></a>2.复杂的高级类型</h4><h5 id="区分类型"><a href="#区分类型" class="headerlink" title="区分类型"></a>区分类型</h5><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/types.tsx</font><br>当出现<strong>联合类型（Person | Worker）</strong>时，有时我们需要调用非共有属性，此时需要进一步确认当前变量究竟属于哪个类型。TypeScript提供了一些方法进行类型区分。</p>
+<ul>
+<li><strong>typeof / instanceof</strong><br>typeof与instanceof可以被TypeScript识别为原始类型的类型保护，我们可以借此进行原始类型的区分。<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecc7c59c14f5d?w=966&h=275&f=png&s=36212" alt="typeof代码示例"></li>
+<li><strong>用户自定义的类型保护</strong><br>当需要对非原始类型进行判断时，用户可以自定义一个类型保护函数，返回值是一个<strong>类型谓词</strong>，类型谓词形式为<strong>paramName is TypeName</strong>。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170eccc58b3c0486?w=932&h=340&f=png&s=34140" alt="用户自定义类型保护代码示例"><br>该示例中<strong>isWorker</strong>就是一个类型保护函数，用于判断入参是否是Worker类型，类型谓词是<strong>p is Worker</strong>。</p>
+<ul>
+<li><strong>类型断言</strong><br>如果开发人员确定当前变量在上下文是什么类型，也可以通过类型断言as/&lt;&gt;显式表明当前变量类型来通过TypeScript的检查。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170eccf9915409c1?w=993&h=232&f=png&s=24110" alt="类型断言类型保护代码示例"><br>在实际开发需求中，我们也经常会遇到某些参数或变量可能为null/undefined的情况，此时调用某些方法就会产生报错。</p>
+<p>我们可以使用类型断言标记！后缀手动去除null和undefined。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecd1113b5a06d?w=758&h=143&f=png&s=12940" alt="去除null代码示例"></p>
+<h4 id="类型别名（Type）"><a href="#类型别名（Type）" class="headerlink" title="类型别名（Type）"></a>类型别名（Type）</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/types.tsx</font></p>
+<p>类型别名会给类型（包括原始类型）起一个新的名字。给原始类型取别名可以增强代码可读性，类似于文档，但较少使用。类型别名更多地使用于非原始类型的情况。</p>
+<p>类型别名（type）与接口（interface）非常相似，但存在以下几点区别：</p>
+<ul>
+<li>接口创建了新的名字，但类型实际上没有</li>
+<li>接口可以被extends和implements，但类型不支持</li>
+<li>如果需要使用联合类型或交叉类型，这时会选择类型别名<br><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecdaf00c1827d?w=805&h=418&f=png&s=26382" alt="类型别名代码示例"></li>
+</ul>
+<h4 id="可辨识联合"><a href="#可辨识联合" class="headerlink" title="可辨识联合"></a>可辨识联合</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/components/union.tsx</font></p>
+<p>可辨识联合也称标签联合或代数数据类型。它是将单例类型，联合类型，类型保护和类型别名合并起来创建的，具有以下三个特征：</p>
+<ul>
+<li>具有普通的单例类型属性 - 是该数据类型可辨识的特征</li>
+<li>一个数据类型包含了多种类型的联合</li>
+<li>该属性上的类型保护 （可以通过单例类型属性进行类型区分）</li>
+</ul>
+<p>（单例类型即只有一个实例的类型，可看作是仅有一个值的字符串/数字字面量类型）</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecdcdd2fa424b?w=1006&h=892&f=png&s=70882" alt="可辨识联合代码示例"></p>
+<h4 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/demos/tk.tsx</font></p>
+<p>使用索引类型，TypeScript可以检查使用了动态属性名的代码。通常用于对象的不常规处理。</p>
+<p><strong>索引类型查询操作符keyof</strong>可以获取对象上所有属性名，<strong>索引访问操作符K[T]</strong>可以获取对象上特定属性的类型。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecde8cc37e171?w=1656&h=490&f=png&s=50321" alt="索引类型代码示例"><br>在示例代码中，由于K extends keyof T，因此K的取值是有限的，等价于K : “id” | “age” | “school” | “location”，并且K的取值随着T的key变化而变化。</p>
+<h4 id="映射类型"><a href="#映射类型" class="headerlink" title="映射类型"></a>映射类型</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/demos/tk.tsx</font></p>
+<p>映射类型是TypeScript提供的一种以相同方式从旧的类型中转换出新的类型的方式，例如将所有属性转换为只读属性或可选属性。</p>
+<p>TypeScript集成了一些已实现的映射类型。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecdfa601ec980?w=1025&h=299&f=png&s=46678" alt="映射类型代码示例"><br>当然开发者也可以根据业务需求利用索引类型等方式实现自定义的映射类型。</p>
+<h3 id="3-模块"><a href="#3-模块" class="headerlink" title="3.模块"></a>3.模块</h3><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/module/* </font></p>
+<p>从ECMAScript 2015开始，JavaScript引入了模块的概念。TypeScript也沿用这个概念。</p>
+<h4 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h4><p>任何声明（比如变量，函数，类，类型别名或接口）、语句都能够通过添加<strong>export</strong>关键字来导出。</p>
+<p>导出时可以通过<strong>as</strong>关键字来重命名。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ece128e0f63a8?w=702&h=388&f=png&s=22331" alt="导出代码示例"><br>当一个模块包含多个模块时，可以通过export *来导出所有模块。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ece1f084d59bc?w=874&h=607&f=png&s=41657" alt="导出所有模块代码示例"><br><strong>默认导出</strong></p>
+<p>每个模块都可以有至多一个默认导出，用<strong>export default</strong>来标记。</p>
+<h4 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h4><p>使用<strong>import</strong>关键字导入其他模块中导出的内容，使用<strong>as</strong>关键字重命名，使用*导入路径下所有导出内容。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ece4ae04a3184?w=700&h=355&f=png&s=26661" alt="导入代码示例"><br>当导入默认导出的模块时，导入时可以自由命名。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ece53f49be360?w=958&h=463&f=png&s=35311" alt="默认导入代码示例"></p>
+<p>直接<strong>import “xxx”</strong>也是一种导入方式，但是<strong>有副作用</strong>的导入。导入文件会对整个项目生效，需要谨慎使用。通常仅在项目入口文件里导入全局css时会用到。</p>
+<h4 id="相对导入和非相对导入"><a href="#相对导入和非相对导入" class="headerlink" title="相对导入和非相对导入"></a>相对导入和非相对导入</h4><p>根据模块引用是相对的还是非相对的，TypeScript会以不同的方式解析导入模块。</p>
+<p>以/，./或../开头的被认为是相对导入。 例如：</p>
+<ul>
+<li>import Entry from “./components/Entry”;</li>
+<li>import { DefaultHeaders } from “../constants/http”;</li>
+<li>import “/mod”;  </li>
+</ul>
+<p>所有其它形式的导入都被当作非相对导入。 例如：</p>
+<ul>
+<li>import { Component } from “@angular/core”;</li>
+</ul>
+<h4 id="export-和-import-module-require"><a href="#export-和-import-module-require" class="headerlink" title="export = 和 import module = require()"></a>export = 和 import module = require()</h4><p>为了支持CommonJS和AMD中的exports，TypeScript提供了export = 的导入声明。</p>
+<p>当使用export =导出模块时，必须要使用import moduleName = require(“xxxx”)来导入。</p>
+<h3 id="现有React-Antd前端项目中常用的一些TS"><a href="#现有React-Antd前端项目中常用的一些TS" class="headerlink" title="现有React + Antd前端项目中常用的一些TS"></a>现有React + Antd前端项目中常用的一些TS</h3><h4 id="1-Form表单"><a href="#1-Form表单" class="headerlink" title="1.Form表单"></a>1.Form表单</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/template/form.tsx</font></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170eceb15544da47?w=885&h=1122&f=png&s=111653" alt="form表单"></p>
+<h4 id="2-Table表格"><a href="#2-Table表格" class="headerlink" title="2.Table表格"></a>2.Table表格</h4><p><font color=grey size=2><a href="https://codesandbox.io/s/typescript-examples-eg3zm" target="_blank" rel="noopener">代码示例</a> src/template/table.tsx</font></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/18/170ecec0f6b4cea4?w=906&h=994&f=png&s=79182" alt="table表格"></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a href="https://www.tslang.cn/docs/home.html" target="_blank" rel="noopener">TypeScript中文网</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
