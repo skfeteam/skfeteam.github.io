@@ -1,0 +1,496 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-DNS-Prefetch-Control" content="on">
+<link rel="dns-prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="prefetch" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<link rel="prefetch" href="//www.google-analytics.com">
+
+
+<link rel="prerender" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="/css/JSimple.css">
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+
+<title>【你应该了解的】抽象语法树ast - skFe</title>
+
+<meta name="keywords" content="">
+
+<meta name="description " content="抽象语法树AST、AST">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+            }
+        });
+    </script>
+
+
+    
+
+    
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa "></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">skFe</h1>
+        <h3 class="cover-siteTitle">无忧亦无惧</h3>
+        <p class="cover-siteDesc">从0到1，从1到n。</p>
+        <div class="cover-sns">
+            
+    &nbsp;&nbsp;<div class="btn btn-github">
+        <a href="https://github.com/skfeteam/skfeteam.github.io" target="_blank" title="github" ref="friend">
+            <i class="fa fa-github"></i>
+        </a>
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+            <div class="page-title">
+    <ul>
+        <li><a href="/">文章</a></li>
+        
+        
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <input type="text"
+               readonly="readonly"
+               id="local-search-input-tip"
+               placeholder="读物检索~" />
+        <button type="button" disabled="disabled" class="search-form-submit"><i class="fa fa-search"></i></button>
+    </form>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                   target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">站点所有</span>
+                    <a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts"
+                       target="_blank">李世伟</a>
+                    <span title="最后编辑于&nbsp;2020-04-13">2020-04-13</span>
+                </p>
+                <p>skFe</p>
+            </div>
+            <h2 class="post-title">【你应该了解的】抽象语法树AST</h2>
+            <div class="post-meta">
+                本文共计16318个字 |
+                您是第&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <p>作为前端程序员，webpack，rollup，babel，eslint这些是不是经常用到？他们是打包工具，代码编译工具，语法检查工具。他们是如何实现的呢？本文介绍的抽象语法树，就是他们用到的技术，是不是应该了解一下呢？</p>
+<p>本文没有晦涩难懂的理论，也没有大段大段的代码，完全从零开始，小白阅读也无任何障碍。通过本文的阅读，您将会了解AST的基本原理以及使用方法。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>什么是抽象语法树？</p>
+<blockquote>
+<ul>
+<li>AST（Abstract Syntax Tree）是源代码的抽象语法结构树状表现形式。下面这张图示意了一段JavaScript代码的抽象语法树的表现形式。</li>
+</ul>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d40000c00cc?w=319&h=239&f=png&s=133964" alt="0.什么是抽象语法树.png"></p>
+<p>抽象语法树有什么用呢？</p>
+<blockquote>
+<ul>
+<li>IDE的错误提示、代码格式化、代码高亮、代码自动补全等</li>
+<li>JSLint、JSHint、ESLint对代码错误或风格的检查等</li>
+<li>webpack、rollup进行代码打包等</li>
+<li>Babel 转换 ES6 到 ES5 语法</li>
+<li>注入代码统计单元测试覆盖率</li>
+</ul>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>1.AST解析器</li>
+<li>2.AST in Babel</li>
+<li>3.Demo with esprima</li>
+<li>4.思考题</li>
+</ul>
+<h2 id="1-AST解析器"><a href="#1-AST解析器" class="headerlink" title="1.AST解析器"></a>1.AST解析器</h2><h3 id="1-1-JS-Parser解析器"><a href="#1-1-JS-Parser解析器" class="headerlink" title="1.1 JS Parser解析器"></a>1.1 JS Parser解析器</h3><p>AST是如何生成的？</p>
+<blockquote>
+<ul>
+<li>能够将JavaScript源码转化为抽象语法树（AST）的工具叫做JS Parser解析器。</li>
+</ul>
+</blockquote>
+<p>JS Parser的解析过程包括两部分</p>
+<blockquote>
+<ul>
+<li>词法分析（Lexical Analysis）：将整个代码字符串分割成最小语法单元数组</li>
+<li>语法分析（Syntax Analysis）：在分词基础上建立分析语法单元之间的关系</li>
+</ul>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d8e3dd0c1a9?w=565&h=303&f=png&s=71985" alt="1.JS_Parser的解析过程.png"></p>
+<p>常见的AST parser</p>
+<blockquote>
+<ul>
+<li>早期有uglifyjs和esprima</li>
+<li>Espree，基于esprima，用于eslint</li>
+<li>Acorn，号称是相对于esprima性能更优，体积更小</li>
+<li>Babylon，出自acorn，用于babel</li>
+<li>Babel-eslint，babel团队维护，用于配合使用ESLint</li>
+</ul>
+</blockquote>
+<h3 id="1-2-词法分析（Lexical-Analysis）"><a href="#1-2-词法分析（Lexical-Analysis）" class="headerlink" title="1.2 词法分析（Lexical Analysis）"></a>1.2 词法分析（Lexical Analysis）</h3><p>语法单元是被解析语法当中具备实际意义的最小单元，简单的来理解就是自然语言中的词语。</p>
+<p>Javascript 代码中的语法单元主要包括以下这么几种：</p>
+<blockquote>
+<ul>
+<li>关键字：例如 var、let、const等</li>
+<li>标识符：没有被引号括起来的连续字符，可能是一个变量，也可能是 if、else 这些关键字，又或者是 true、false 这些内置常量</li>
+<li>运算符： +、-、 *、/ 等</li>
+<li>数字：像十六进制，十进制，八进制以及科学表达式等</li>
+<li>字符串：因为对计算机而言，字符串的内容会参与计算或显示</li>
+<li>空格：连续的空格，换行，缩进等</li>
+<li>注释：行注释或块注释都是一个不可拆分的最小语法单元</li>
+<li>其他：大括号、小括号、分号、冒号等</li>
+</ul>
+</blockquote>
+<h3 id="1-3-语法分析（Syntax-Analysis）"><a href="#1-3-语法分析（Syntax-Analysis）" class="headerlink" title="1.3 语法分析（Syntax Analysis）"></a>1.3 语法分析（Syntax Analysis）</h3><p>组合分词的结果，确定词语之间的关系，确定词语最终的表达含义，生成抽象语法树。</p>
+<h3 id="1-4-示例"><a href="#1-4-示例" class="headerlink" title="1.4 示例"></a>1.4 示例</h3><ul>
+<li><p>以赋值语句为例，使用esprima来解析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>词法分析结果如下，可以看到，分词的结果是一个数组，每一个元素都是一个最小的语法单元：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Keyword&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;var&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;a&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Punctuator&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;&#x3D;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Numeric&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;1&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Punctuator&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;;&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>语法分析结果如下，把分词的结果按照相互的关系组成一个树形结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;VariableDeclaration&quot;,</span><br><span class="line">            &quot;declarations&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;VariableDeclarator&quot;,</span><br><span class="line">                    &quot;id&quot;: &#123;</span><br><span class="line">                        &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                        &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &quot;init&quot;: &#123;</span><br><span class="line">                        &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">                        &quot;value&quot;: 1,</span><br><span class="line">                        &quot;raw&quot;: &quot;1&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &quot;kind&quot;: &quot;var&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="1-5-工具网站"><a href="#1-5-工具网站" class="headerlink" title="1.5 工具网站"></a>1.5 工具网站</h3><p><a href="https://esprima.org/demo/parse.html" target="_blank" rel="noopener">esprima/parser</a></p>
+<blockquote>
+<ul>
+<li>经典的JavaScript抽象语法树解析器，网站提供的功能也非常丰富</li>
+<li>可以在线查看分词和抽象语法树</li>
+<li>Syntax展示抽象语法树，Tokens展示分词<br><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d5eb608af56?w=1402&h=1057&f=png&s=118860" alt="1.esprima-parser.png"></li>
+<li>还提供了各种parse的性能比较，看起来Acorn的性能更优秀一点。<br><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d63d8af2974?w=934&h=664&f=png&s=67479" alt="1.各种parse的性能比较.png"></li>
+</ul>
+</blockquote>
+<p><a href="https://astexplorer.net/" target="_blank" rel="noopener">AST Explorer</a></p>
+<blockquote>
+<ul>
+<li>AST的可视化工具网站，可以使用各种parse对代码进行AST转换<br><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d6747558b37?w=2256&h=1290&f=png&s=191983" alt="1.AST-Explorer可视化工具.png"></li>
+</ul>
+</blockquote>
+<p>AST解析规范（<a href="https://github.com/estree/estree" target="_blank" rel="noopener">The Estree Spec</a>）</p>
+<blockquote>
+<ul>
+<li>相同的JavaScript代码，通过各种parser解析的AST结果都是一样的，这是因为他们都参照了同样的AST解析规范</li>
+<li><a href="https://github.com/estree/estree" target="_blank" rel="noopener">The Estree Spec</a> 规范是 Mozilla 的工程师给出的 SpiderMonkey 引擎输出的 JavaScript AST 的规范文档，也可以参考：<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" target="_blank" rel="noopener">SpiderMonkey in MDN</a></li>
+</ul>
+</blockquote>
+<h2 id="2-AST-in-Babel"><a href="#2-AST-in-Babel" class="headerlink" title="2.AST in Babel"></a>2.AST in Babel</h2><p>前面已经介绍了AST的内容，下面我们来看看babel是如何使用AST的。</p>
+<h3 id="Babel的运行原理"><a href="#Babel的运行原理" class="headerlink" title="Babel的运行原理"></a>Babel的运行原理</h3><p>Babel的工作过程经过三个阶段，parse、transform、generate</p>
+<blockquote>
+<ul>
+<li>parse阶段，将源代码转换为AST</li>
+<li>transform阶段，利用各种插件进行代码转换</li>
+<li>generator阶段，再利用代码生成工具，将AST转换成代码</li>
+</ul>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d7698a3a768?w=658&h=183&f=png&s=141310" alt="2.Babel的运行原理.png"></p>
+<p>Parse-解析</p>
+<blockquote>
+<ul>
+<li>Babel 使用 @babel/parser 解析代码，输入的 js 代码字符串根据 ESTree 规范生成 AST</li>
+<li>Babel 使用的解析器是 babylon</li>
+</ul>
+</blockquote>
+<p>Transform-转换</p>
+<blockquote>
+<ul>
+<li>接收 AST 并对其进行遍历，在此过程中对节点进行添加、更新及移除等操作。也是Babel插件接入工作的部分。</li>
+<li>Babel提供了@babel/traverse(遍历)方法维护AST树的整体状态，方法的参数为原始AST和自定义的转换规则，返回结果为转换后的AST。</li>
+</ul>
+</blockquote>
+<p>Generator-生成</p>
+<blockquote>
+<ul>
+<li>代码生成步骤把最终（经过一系列转换之后）的 AST 转换成字符串形式的代码，同时还会创建源码映射（source maps）。</li>
+<li>遍历整个 AST，然后构建可以表示转换后代码的字符串。</li>
+<li>Babel使用 @babel/generator 将修改后的 AST 转换成代码，生成过程可以对是否压缩以及是否删除注释等进行配置，并且支持 sourceMap。</li>
+</ul>
+</blockquote>
+<h2 id="3-Demo-with-esprima"><a href="#3-Demo-with-esprima" class="headerlink" title="3.Demo with esprima"></a>3.Demo with esprima</h2><p>了解了babel的运行原理，我们根据babel的三个步骤来动手写一个demo，加深对AST的理解。</p>
+<h5 id="我们准备使用esprima来模拟两个代码转换的功能："><a href="#我们准备使用esprima来模拟两个代码转换的功能：" class="headerlink" title="我们准备使用esprima来模拟两个代码转换的功能："></a>我们准备使用esprima来模拟两个代码转换的功能：</h5><blockquote>
+<ul>
+<li>把 == 改为全等 ===</li>
+<li>把parseInt(a) 改为 parseInt(a,10)</li>
+</ul>
+</blockquote>
+<p>转换前的代码，before.js：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function fun1(opt) &#123;</span><br><span class="line">  if (opt.status &#x3D;&#x3D; 1) &#123;</span><br><span class="line">      console.log(&#39;1&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function fun2(age) &#123;</span><br><span class="line">  if (parseInt(age) &gt;&#x3D; 18) &#123;</span><br><span class="line">      console.log(&#39;2&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>期望转换后的代码，after.js：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function fun1(opt) &#123;</span><br><span class="line">    if (opt.status &#x3D;&#x3D;&#x3D; 1) &#123;&#x2F;&#x2F;&#x3D;&#x3D;变成&#x3D;&#x3D;&#x3D;</span><br><span class="line">        console.log(&#39;1&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function fun2(age) &#123;</span><br><span class="line">    if (parseInt(age, 10) &gt;&#x3D; 18) &#123;&#x2F;&#x2F;parseInt(a)变成parseInt(a,10)</span><br><span class="line">        console.log(&#39;2&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>开始动手，先引入工具包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;引入工具包</span><br><span class="line">const esprima &#x3D; require(&#39;esprima&#39;);&#x2F;&#x2F;JS语法树模块</span><br><span class="line">const estraverse &#x3D; require(&#39;estraverse&#39;);&#x2F;&#x2F;JS语法树遍历各节点</span><br><span class="line">const escodegen &#x3D; require(&#39;escodegen&#39;);&#x2F;&#x2F;JS语法树反编译模块</span><br><span class="line">const fs &#x3D; require(&#39;fs&#39;);&#x2F;&#x2F;读写文件</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用esprima parse把源代码转换成AST。怎么样，是不是很简单，一句代码就搞定了。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const before &#x3D; fs.readFileSync(&#39;.&#x2F;before.js&#39;, &#39;utf8&#39;);</span><br><span class="line">const ast &#x3D; esprima.parseScript(before);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>遍历AST，找到符合转换规则的代码进行转换</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">estraverse.traverse(ast, &#123;</span><br><span class="line">  enter: (node) &#x3D;&gt; &#123;</span><br><span class="line">    toEqual(node);&#x2F;&#x2F;把 &#x3D;&#x3D; 改为全等 &#x3D;&#x3D;&#x3D;</span><br><span class="line">    setParseInt(node); &#x2F;&#x2F;把 parseInt(a) 改为 parseInt(a,10)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>再来看看toEqual和setParseInt函数的实现</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function toEqual(node) &#123;</span><br><span class="line">  if (node.operator &#x3D;&#x3D;&#x3D; &#39;&#x3D;&#x3D;&#39;) &#123;</span><br><span class="line">    node.operator &#x3D; &#39;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function setParseInt(node) &#123;</span><br><span class="line">  &#x2F;&#x2F;判断节点类型，方法名称，方法的参数的数量，数量为1就增加第二个参数</span><br><span class="line">  if (node.type &#x3D;&#x3D;&#x3D; &#39;CallExpression&#39; &amp;&amp; node.callee.name &#x3D;&#x3D;&#x3D; &#39;parseInt&#39; &amp;&amp; node.arguments.length &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">    node.arguments.push(&#123;&#x2F;&#x2F;增加参数，其实就是数组操作</span><br><span class="line">      &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">      &quot;value&quot;: 10,</span><br><span class="line">      &quot;raw&quot;: &quot;10&quot;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>最后，把转换后的AST生成字符串代码，写入文件。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;生成目标代码</span><br><span class="line">const code &#x3D; escodegen.generate(ast);</span><br><span class="line">&#x2F;&#x2F;写入文件</span><br><span class="line">fs.existsSync(&#39;.&#x2F;after.js&#39;) &amp;&amp; fs.unlinkSync(&#39;.&#x2F;after.js&#39;);</span><br><span class="line">fs.writeFileSync(&#39;.&#x2F;after.js&#39;, code, &#39;utf8&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>好了，打开after.js文件看看，是不是已经转换成功了？是不是和我们期望的一样？有没有一种babel的感觉？是的，其实babel也是这么做的，只不过它的转换规则函数相当的复杂，因为需要考虑各种JavaScript的语法情况，工作量巨大，这也就是babel最核心的地方。</p>
+<p>再回头看看我们写的demo，是完全遵循babel的三个步骤来做的。第一步parse和第三步generate都非常简单，一句话的事，没什么好说的。重点是Transform，转换规则函数的实现，有人可能会问，你怎么知道，toEqual和setParseInt转换函数要这么写呢？</p>
+<p>好的，为了回答这个问题，我们来看看这两个规则的代码转换前后的AST就明白了。</p>
+<blockquote>
+<ul>
+<li>把 == 改为全等 ===</li>
+</ul>
+</blockquote>
+<p>a==b的AST如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;BinaryExpression&quot;,</span><br><span class="line">                &quot;operator&quot;: &quot;&#x3D;&#x3D;&quot;,</span><br><span class="line">                &quot;left&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;right&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;b&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>a===b的AST如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;BinaryExpression&quot;,</span><br><span class="line">                &quot;operator&quot;: &quot;&#x3D;&#x3D;&#x3D;&quot;,</span><br><span class="line">                &quot;left&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;right&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;b&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较上面两个AST，是不是只有一个”operator”字段有区别，一个是==， 另一个是===。</p>
+<p>再来看看toEqual函数，是不是明白了？只要修改一下node.operator的值就能完成转换了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function toEqual(node) &#123;</span><br><span class="line">  if (node.operator &#x3D;&#x3D;&#x3D; &#39;&#x3D;&#x3D;&#39;) &#123;</span><br><span class="line">    node.operator &#x3D; &#39;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>把parseInt(a) 改为 parseInt(a,10)</li>
+</ul>
+</blockquote>
+<p>parseInt(a)的AST如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;CallExpression&quot;,</span><br><span class="line">                &quot;callee&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;parseInt&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;arguments&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                        &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>parseInt(a, 10)的AST如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;CallExpression&quot;,</span><br><span class="line">                &quot;callee&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;parseInt&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;arguments&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                        &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">                        &quot;value&quot;: 10,</span><br><span class="line">                        &quot;raw&quot;: &quot;10&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较这两个AST，看到了吗？只是arguments数组多了下面这个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">    &quot;value&quot;: 10,</span><br><span class="line">    &quot;raw&quot;: &quot;10&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以在转换规则函数中，我们把这个元素加进去就能实现转换了。是不是非常简单？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function setParseInt(node) &#123;</span><br><span class="line">  &#x2F;&#x2F;判断节点类型，方法名称，方法的参数的数量，数量为1就增加第二个参数</span><br><span class="line">  if (node.type &#x3D;&#x3D;&#x3D; &#39;CallExpression&#39; &amp;&amp; node.callee.name &#x3D;&#x3D;&#x3D; &#39;parseInt&#39; &amp;&amp; node.arguments.length &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">    node.arguments.push(&#123;&#x2F;&#x2F;增加参数，其实就是数组操作</span><br><span class="line">      &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">      &quot;value&quot;: 10,</span><br><span class="line">      &quot;raw&quot;: &quot;10&quot;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，到此为止，这个Demo应该完全理解了吧。</p>
+<h2 id="4-思考题"><a href="#4-思考题" class="headerlink" title="4.思考题"></a>4.思考题</h2><p>看到这里，你已经明白了AST的原理以及使用方法。下面来看一道题目，检验一下学习成果。</p>
+<blockquote>
+<p>假设a是一个对象，var a = { b : 1}，那么a.b和a[‘b’] ，哪个性能更高呢？</p>
+</blockquote>
+<p>a.b和a[‘b’]的写法，大家经常会用到，也许没有注意过这两种写法会有性能差异。事实上，有人做过测试，两者的性能差距不大，a.b会比a[‘b’]性能稍微好一点。那么，为什么a.b比a[‘b’]性能稍微好一点呢？</p>
+<p>我认为，a.b可以直接解析b为a的属性，而a[‘b’]可能会多一个判断的过程，因为[]里面的内容可能是一个变量，也可能是个常量。</p>
+<p>这种说法看起来好像很有道理，事实上是不是这样呢？有没有什么证据来证明这个说法吗？</p>
+<p>好吧，要想解释清楚这个问题，就只能从V8引擎说起了。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d7e8a494b89?w=440&h=329&f=png&s=30838" alt="4.V8引擎.png"></p>
+<p>js代码能在cpu上运行，主要是js引擎的功劳，V8引擎是google开发，应用在chrome浏览器和nodejs上，是一个经典的js引擎。上图可以看出，在V8引擎中，js从源代码到机器码的转译主要有三个步骤：Parser（AST） -&gt;Ignition（Bytecode）-&gt;TurboFan（Machine Code）</p>
+<blockquote>
+<ul>
+<li>Parser：负责将JavaScript源码转换为Abstract Syntax Tree (AST)</li>
+<li>Ignition：interpreter，即解释器，负责将AST转换为Bytecode，解释执行Bytecode；同时收集TurboFan优化编译所需的信息，比如函数参数的类型</li>
+<li>TurboFan：compiler，即编译器，利用Ignitio所收集的类型信息，将Bytecode转换为优化的汇编代码</li>
+</ul>
+</blockquote>
+<p>Parser-AST解析器</p>
+<ul>
+<li>大家应该很熟悉了，就是我们今天介绍的AST解析器</li>
+</ul>
+<p>Ignition-解释器</p>
+<ul>
+<li>把AST解析成一种类汇编语言，样子和汇编语言很相似，叫做Bytecode。这种语言和CPU无关，不同cpu的机器上生成的Bytecode都是相同的。</li>
+</ul>
+<p>TurboFan-编译器</p>
+<ul>
+<li>大家知道，每种cpu的架构和指令集是不同的，对应的汇编语言会有差异。V8在这一步，针对不同的cpu，把Bytecode解析成适合不同cpu的汇编语言。V8可以支持十几种cpu的汇编语言。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17172d866d86179a?w=765&h=317&f=png&s=92740" alt="4.V8引擎代码解析.png"></p>
+<p>现在，我们就来比较一下a.b和a[‘b’]在V8的解析下，到底有什么不同</p>
+<ul>
+<li>a.b的测试代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function test001() &#123;</span><br><span class="line">    var a &#x3D; &#123; b: 1 &#125;;</span><br><span class="line">    console.log(a.b)</span><br><span class="line">&#125;</span><br><span class="line">test001();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>a[‘b’]的测试代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function test002() &#123;</span><br><span class="line">    var a &#x3D; &#123; b: 1 &#125;;</span><br><span class="line">    console.log(a[&#39;b&#39;])</span><br><span class="line">&#125;</span><br><span class="line">test002();</span><br></pre></td></tr></table></figure>
+
+<p>先看下他们生成的Bytecode</p>
+<ul>
+<li><p>a.b的Bytecode代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[generated bytecode for function: test001]</span><br><span class="line">Parameter count 1</span><br><span class="line">Frame size 32</span><br><span class="line">   16 E&gt; 000001F6C03D7192 @    0 : a0                StackCheck </span><br><span class="line">   33 S&gt; 000001F6C03D7193 @    1 : 79 00 00 29 fa    CreateObjectLiteral [0], [0], #41, r1</span><br><span class="line">         000001F6C03D7198 @    6 : 27 fa fb          Mov r1, r0</span><br><span class="line">   46 S&gt; 000001F6C03D719B @    9 : 13 01 01          LdaGlobal [1], [1]</span><br><span class="line">         000001F6C03D719E @   12 : 26 f9             Star r2</span><br><span class="line">   54 E&gt; 000001F6C03D71A0 @   14 : 28 f9 02 03       LdaNamedProperty r2, [2], [3]</span><br><span class="line">         000001F6C03D71A4 @   18 : 26 fa             Star r1</span><br><span class="line">   60 E&gt; 000001F6C03D71A6 @   20 : 28 fb 03 05       LdaNamedProperty r0, [3], [5]</span><br><span class="line">         000001F6C03D71AA @   24 : 26 f8             Star r3</span><br><span class="line">   54 E&gt; 000001F6C03D71AC @   26 : 57 fa f9 f8 07    CallProperty1 r1, r2, r3, [7]</span><br><span class="line">         000001F6C03D71B1 @   31 : 0d                LdaUndefined </span><br><span class="line">   63 S&gt; 000001F6C03D71B2 @   32 : a4                Return </span><br><span class="line">Constant pool (size &#x3D; 4)</span><br><span class="line">Handler Table (size &#x3D; 0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>a[‘b’]的Bytecode代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[generated bytecode for function: test002]</span><br><span class="line">Parameter count 1</span><br><span class="line">Frame size 32</span><br><span class="line">   16 E&gt; 0000022E1C7D6DC2 @    0 : a0                StackCheck </span><br><span class="line">   33 S&gt; 0000022E1C7D6DC3 @    1 : 79 00 00 29 fa    CreateObjectLiteral [0], [0], #41, r1</span><br><span class="line">         0000022E1C7D6DC8 @    6 : 27 fa fb          Mov r1, r0</span><br><span class="line">   46 S&gt; 0000022E1C7D6DCB @    9 : 13 01 01          LdaGlobal [1], [1]</span><br><span class="line">         0000022E1C7D6DCE @   12 : 26 f9             Star r2</span><br><span class="line">   54 E&gt; 0000022E1C7D6DD0 @   14 : 28 f9 02 03       LdaNamedProperty r2, [2], [3]</span><br><span class="line">         0000022E1C7D6DD4 @   18 : 26 fa             Star r1</span><br><span class="line">   59 E&gt; 0000022E1C7D6DD6 @   20 : 28 fb 03 05       LdaNamedProperty r0, [3], [5]</span><br><span class="line">         0000022E1C7D6DDA @   24 : 26 f8             Star r3</span><br><span class="line">   54 E&gt; 0000022E1C7D6DDC @   26 : 57 fa f9 f8 07    CallProperty1 r1, r2, r3, [7]</span><br><span class="line">         0000022E1C7D6DE1 @   31 : 0d                LdaUndefined </span><br><span class="line">   66 S&gt; 0000022E1C7D6DE2 @   32 : a4                Return </span><br><span class="line">Constant pool (size &#x3D; 4)</span><br><span class="line">Handler Table (size &#x3D; 0)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>比较一下两者的Bytecode，你会发现它们完全相同，这就说明，这两种写法在Bytecode层及以下的执行，性能是没有差别的。事实上，它们有差别，就只能往上找，上面就只有Parser阶段了。我们再来看看它们的AST有什么区别。</p>
+<ul>
+<li>a.b的AST代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;MemberExpression&quot;,</span><br><span class="line">                &quot;computed&quot;: false,</span><br><span class="line">                &quot;object&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;property&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;b&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>a[‘b’]的AST代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;ExpressionStatement&quot;,</span><br><span class="line">            &quot;expression&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;MemberExpression&quot;,</span><br><span class="line">                &quot;computed&quot;: true,</span><br><span class="line">                &quot;object&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">                    &quot;name&quot;: &quot;a&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;property&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">                    &quot;value&quot;: &quot;b&quot;,</span><br><span class="line">                    &quot;raw&quot;: &quot;&#39;b&#39;&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;sourceType&quot;: &quot;script&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们发现唯一的区别就是”computed”属性，a.b是false，a[‘b’]是true，说明在解析成AST时，a[‘b’]比a.b多了一个计算的过程。由此我们断定，两者微小的差异应该就在这里。好了，证据找到了，现在应该没有疑问了吧。</p>
+<h2 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h2><p>看到这里，你不但了解了AST的相关知识，还知道了V8引擎是如何解析js代码的，是不是有所收获呢？如果你觉得这篇文章对你有用，还请顺便点个赞，非常感谢(90度鞠躬)。</p>
+
+            
+                
+
+            
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 嘘寒问暖，不如打笔巨款。
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+        </div>
+        
+    </article>
+    
+        <p style="text-align: center">本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+    
+
+</div>
+
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner" style="text-align: center">
+        <p>
+            <a href="/about"  title="我们~">我们~</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="帮助" >帮助</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友链">友链</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/sitemap.xml" title="地图">地图</a>
+        </p>
+        <p>
+            本站已建立&nbsp<a href="/timeline" id="siteBuildingTime"></a>&nbsp天，<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="licence">采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议创作</a><br/>
+            ©2017-<span id="cpYear"></span> 基于&nbsp<a href="http://hexo.io" target="_blank" rel="nofollow">Hexo</a>
+            ，主题采用&nbsp&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank" rel="bookmark">JSimple</a>
+            ，站点所有&nbsp<a href="https://juejin.im/user/5dfad50cf265da33d21e7e0d/posts" target="_blank" rel="friend">skFe</a>
+            ，Hosted by <a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages</a>
+        </p>
+    </div>
+</footer>
+
+<script src="/js/SimpleCore.js"></script>
+
+
+</div>
+<!-- search pop -->
+<div class="popup search-popup local-search-popup">
+    <div class="local-search-header clearfix">
+        <span class="search-icon">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="popup-btn-close">
+            <i class="fa fa-times-circle"></i>
+        </span>
+        <div class="local-search-input-wrapper">
+            <input id="local-search-input"
+                   spellcheck="false"
+                   type="text"
+                   autocomplete="off"
+                   placeholder="请输入查询关键词"/>
+        </div>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        var jsi_config = {
+            buildingTime: '12/18/2019',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+            localSearch: { dbPath: '' },
+            readMode: 'day'
+        };
+        
+        SimpleCore.init(jsi_config);
+        
+    });
+</script>
+</body>
+</html>
